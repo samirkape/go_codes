@@ -1,2 +1,2 @@
 # practice
-Just to test
+Just to test how to commit changes
