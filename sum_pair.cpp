@@ -26,12 +26,11 @@ void find_sum_pair(int * arr, int size, int sum ){
             cout<<"\n";
          }
       }
-      
 }
 
 int main()
 {
-   int arr[6] = {8,7,2,5,3,1}; 
-   int sum = 10;
-   find_sum_pair(arr,sizeof(arr),sum);
+   int arr[] = {1, 5, 7, -1, 5};
+   int sum = 6;
+   find_sum_pair(arr,sizeof(arr)/__SIZEOF_INT__,sum);
 }
