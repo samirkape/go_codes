@@ -28,7 +28,7 @@ int find_med(int * arr, int slide, int size){
     if(slide%2==0){
         for(int i=0; i+slide <= size; i++){
             sorted = sort_(i+arr,slide);
-            cout<<(float)(sorted[1]+sorted[2])/2<<" ";
+            cout<<(float)(sorted[(slide/2)-1]+sorted[slide/2])/2<<" ";
             fflush(stdout);
             free(sorted);
         }
@@ -45,9 +45,8 @@ int find_med(int * arr, int slide, int size){
 
 int main()
 {
-   int arr[] = {-1, 5, 13, 8, 2, 3, 3, 1};
-   int k = 3;
+   int arr[] = {-1, 5, 13, 8, 2, 3, 3, 1, 5, 2, 3, -2};
+   int k = 6;
    int size = sizeof(arr)/__SIZEOF_INT__;
    find_med(arr,k,size);
-   
 }
