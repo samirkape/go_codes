@@ -34,7 +34,7 @@ void power_set(int * arr, int size, int K){
     int fg = 0;
     int ctr = 0;
 
-    for(int i = 0; i < pwr; i++ ){
+    for(int i = 0; i <= pwr; i++ ){
         k = i;
         for( int j = 0; j < size; j++ ){
             if( (char)k & 1 )
@@ -53,14 +53,15 @@ void power_set(int * arr, int size, int K){
         idx = 0;
         fg = 0;
     }
-    cout<<"combs"<<ctr;
+    cout<<"combinations : %d\n"<<ctr;
 }
 
 int main()
 {
    //char arr[] = {'a', 'b','c'};
    //int arr[] = {1, 2, 3, 4}, K = 3;
-   int arr[] = {5, 10, 12, 13, 15, 18}, K = 15;
+   //int arr[] = {5, 10, 12, 13, 15, 18}, K = 30;
+   int arr[] = {7,3,2,5,8}, K = 14;
    int size = sizeof(arr)/sizeof(int);
    sort_(arr,size);
    power_set(arr,size,K);
