@@ -19,24 +19,23 @@ void rotate(int * arr, int size, int d){
     int j = 0;
 
     if (sz==1){
-            for(int i=0; i<d; i++){
-        int tmp = arr[0];
-        for(j=0; j+sz < size; j+=sz ){
-            arr[j] = arr[j+sz];
+        for(int i=0; i<d; i++){
+            int tmp = arr[0];
+            for(j=0; j+sz < size; j+=sz ){
+                arr[j] = arr[j+sz];
+            }
+            arr[j] = tmp;
         }
-        arr[j] = tmp;
-    }
     }
     else{
-    for(int i=0; i<sz; i++){
-        int tmp = arr[i];
-        for(j=i; j+d < size; j+=d ){
-            arr[j] = arr[j+d];
-        }
-        arr[j] = tmp;
+        for(int i=0; i<sz; i++){
+            int tmp = arr[i];
+            for(j=i; j+d < size; j+=d ){
+                arr[j] = arr[j+d];
+            }
+            arr[j] = tmp;
         }
     }
-
     for(int i=0; i<size; i++)
         cout<<arr[i]<<" ";
 }
