@@ -36,7 +36,7 @@ unsigned long int maxScore(vector<int> a, int m) {
         out += prod(arr+i, idx, size);
         idx++;
     }
-    return out;
+    return out % 1000000007;
 }
 
 int main()
