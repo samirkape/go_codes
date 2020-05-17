@@ -17,28 +17,26 @@ vector<string> split(const string &);
 
 long long int prod(int* a, long long int index, long long int size){
     long long int sum = 0;
-    for(int i = 0; i < size; i++ ){
+    for(long int i = 0; i < size; i++ ){
         sum += a[i];
     }
     return index * sum;
 }
-int maxScore(vector<int> a, int m) {
+unsigned long int maxScore(vector<int> a, int m) {
     int n = a.size();
     //long long int last_seg = (n % m)+m;
-    long long int out = 0;
+    unsigned long int out = 0;
     long long int size = m;
-    int idx = 1;
+    unsigned long int idx = 1;
     
     if(n != m)sort(a.begin(),a.end());
     int * arr = &a[0];
     for(long long int i = 0; i+(n%m) < n; i+=m ){
-        if(idx == (n/m)) size = m + (n%m);
+        if(idx == (unsigned long int)(n/m)) size = m + (n%m);
         out += prod(arr+i, idx, size);
         idx++;
     }
-    cout<<out;
-    return 0;
-    
+    return out;
 }
 
 int main()
