@@ -6,8 +6,7 @@
 #include<string>
 using namespace std;
 
-void form_stack( vector<long int> input, int N ){
-    int prev_qry = 0;
+void form_stack( vector<long int> input ){
     vector<long int> out;
     long int is = input.size();
     long int max = -INT64_MAX;
@@ -15,7 +14,6 @@ void form_stack( vector<long int> input, int N ){
         if(input[i] == 1){
                if(input[i+1] > max) max = input[i+1]; 
                out.push_back(input[i+1]); 
-               prev_qry = 1;
                i+=2;
         }   
         else if (input[i] == 2){
