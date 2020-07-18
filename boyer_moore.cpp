@@ -10,39 +10,11 @@ void badChar( vector<string> str, int size,
                         int * badchar)  
 {  
     int i;  
-  
-    // Initialize all occurrences as -1  
     for (i = 0; i < 10; i++)  
         badchar[i] = -1;  
-    
-    // Fill the actual value of last occurrence  
-    // of a character  
     for (i = 0; i < size; i++)  
         badchar[stoi(str[i])] = i;  
 }  
-
-// int search_rest( string new_txt, string patt ){
-//     if( new_txt == patt ){
-//         return 1;
-//     }
-//     return 0;
-// }
-
-// int search( string n,  vector<string> arr ){
-//     int  j = 0;
-//     int idx = arr.size() - 1;
-//     auto i = arr.rbegin() ;
-//     for( ; i != arr.rend(); i++ ){
-//         if( *i == n ) 
-//             break;
-//         idx--;
-//     }
-//     int pos = arr.size() - idx - 1;
-//     if(i != arr.rend() ) return pos;
-//     return arr.size();
-// }
-
-
 
 typedef struct{
     int row;
