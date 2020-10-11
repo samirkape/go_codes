@@ -17,17 +17,17 @@ public:
         if( key < arr[l] ) return l;
         
         for( int i = 0; i < arr_size; i++ ){
-            mid = ( r - l ) / 2;
+            mid = ( r - l ) / 2 + l;
             int mid_e = arr[mid];
             
             if( key == mid_e || ( key <= arr[mid + 1] && key > mid_e ) )
                 return mid + 1;
             
             if( key > mid_e ){
-                l == mid ? l -= 1: l = mid; 
+                l == mid ? l -= 1: l = mid + 1; 
             }
             else if( key < mid_e ){
-                r == mid ? r -= 1: r = mid; 
+                r == mid ? r -= 1: r = mid - 1; 
             }
         }
         
