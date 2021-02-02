@@ -45,8 +45,8 @@ int find_med(int * arr, int slide, int size){
 
 int main()
 {
-   int arr[] = {-1, 5, 13, 8, 2, 3, 3, 1, 5, 2, 3, -2};
-   int k = 6;
+   int arr[] = {-1, 5, 13, 8, 2, 3, 3, 1};
+   int k = 4;
    int size = sizeof(arr)/__SIZEOF_INT__;
    find_med(arr,k,size);
 }

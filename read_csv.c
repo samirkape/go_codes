@@ -43,7 +43,6 @@ double ** read_csv( char * filename, int * out_rows, int * out_col )
     double first_token = 0.0;
     int len = 0;
     int rows = 0;
-    int ch  = 0;
     int cols = 0;
     int num_chars_in_row = 0;
     

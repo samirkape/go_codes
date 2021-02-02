@@ -19,7 +19,7 @@ void rotate(int * arr, int size, int d){
     int j = 0;
 
     if (sz==1){
-        for(int i=0; i<d; i++){
+        for(int i=0; i<sz; i++){
             int tmp = arr[0];
             for(j=0; j+sz < size; j+=sz ){
                 arr[j] = arr[j+sz];

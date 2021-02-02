@@ -33,7 +33,9 @@ public:
         
         return 0;
     }
+    
     void merge(vector<int>& arr1, int m, vector<int>& arr2, int n) {
+        
         int exit_flag = 0;
         int res1 = m;
         int res2 = n;
@@ -45,7 +47,6 @@ public:
                 arr1.insert( it + pos, arr2[i] );
                 m += 1;
             }
-            
             else{
                 for( int j = m; i < n; j++ ){
                     arr1[j] = arr2[i++];
@@ -53,8 +54,10 @@ public:
                 break;
             }
         }
+        
         arr1.resize( res1+res2 ) ;
     }
+
 };
 
 int main(){

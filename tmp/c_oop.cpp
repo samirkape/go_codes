@@ -30,7 +30,7 @@ void find_sum_pair(int * arr, int size, int sum ){
 
 int main()
 {
-   int arr[] = {1, 5, 7, -1, 5};
-   int sum = 6;
+   int arr[] = {2, 5, 17, -1};
+   int sum = 7;
    find_sum_pair(arr,sizeof(arr)/__SIZEOF_INT__,sum);
 }

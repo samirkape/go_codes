@@ -39,7 +39,6 @@ void power_set(int * arr, int size, int K){
         for( int j = 0; j < size; j++ ){
             if( (char)k & 1 )
             {
-                sum += arr[j];
                 out[idx] = arr[j];
                 idx++;
                 fg = 1;
@@ -48,7 +47,7 @@ void power_set(int * arr, int size, int K){
             k = k>>1;
         }
         if(fg == 1) ctr++;
-        if(sum == K) print(out, idx);
+        if(idx == 2) print(out, idx);
         sum = 0;
         idx = 0;
         fg = 0;
@@ -61,7 +60,7 @@ int main()
    //char arr[] = {'a', 'b','c'};
    //int arr[] = {1, 2, 3, 4}, K = 3;
    //int arr[] = {5, 10, 12, 13, 15, 18}, K = 30;
-   int arr[] = {7,3,2,5,8}, K = 14;
+   int arr[] = {10,20,20,10,10,30,50,10,20}, K = 14;
    int size = sizeof(arr)/sizeof(int);
    sort_(arr,size);
    power_set(arr,size,K);
