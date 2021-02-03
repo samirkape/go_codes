@@ -1,6 +1,6 @@
 package main
-// this code will find duplicate lines from stdin
-// will be using bufio and map and make
+// this code will fetch lines from stdin
+// will be map to count character occurances in the string 
 
 import(
 	"fmt"
