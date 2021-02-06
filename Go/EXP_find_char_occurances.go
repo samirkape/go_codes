@@ -1,6 +1,6 @@
 package main
-// this code will fetch lines from stdin
-// will be map to count character occurances in the string 
+// this code will fetch string lines from stdin
+// will be using map to count character occurances in the string 
 
 import(
 	"fmt"
