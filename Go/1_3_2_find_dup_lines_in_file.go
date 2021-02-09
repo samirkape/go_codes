@@ -19,6 +19,7 @@ func main() {
 			fd, err := os.Open(element)
 			check_err(err)
 			scan_text(fd, store)
+			fd.Close()
 		}
 	} else {
 		scan_text(os.Stdin, store)
