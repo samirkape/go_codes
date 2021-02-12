@@ -1,4 +1,4 @@
-// this utility will Fetch the URL specified on CL with response.Status
+// this utility will EX Fetch the URL specified on CL with response.Status
 // refer >> man curl for more details
 
 package main
