@@ -1,4 +1,4 @@
-// this utility will fetch the URL specified on CL
+// this utility will fetch the URL specified on CL using ioutil.ReadAll
 // refer >> man curl for more details
 
 package main
