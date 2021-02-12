@@ -8,6 +8,7 @@
 
 * `sed -i '/*----*/d' file.txt`
   * asterisk = wildcard
+* Update check
 
 
 
