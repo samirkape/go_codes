@@ -1,5 +1,4 @@
-// this program will use channels to simultaneously fetch the
-// https response of the sites provided as an input
+// this program will use channels to simultaneously fetch the https response of the sites provided as an input.
 
 package main
 
