@@ -1,10 +1,38 @@
 #!/bin/bash
 
-if [ ! -f build/${1%.*} ]
+while getopts "b:r:d:" opt; do
+
+case $opt in
+
+b)
+go build $OPTARG 
+mv ${OPTARG%.*} build/
+echo "Build Successful"
+;;
+
+r)
+if [ -f build/${OPTARG%.*} ]
 then
-    echo "Building..."
-    go build $1 && mv ${1%.*} ./build/ && ./build/${1%.*} $2
-else
     echo "Running..."
-    ./build/${1%.*} $2
+    ./build/${OPTARG%.*} $3
+else
+    echo "Build not found..."
+    exit -1
 fi
+;;
+
+d)
+if [ -f build/${OPTARG%.*} ]
+then
+    rm build/${OPTARG%.*}
+    echo "Removed!"
+fi
+;;
+
+*)
+#Printing error message
+echo "invalid option or argument $OPTARG"
+;;
+
+esac
+done
