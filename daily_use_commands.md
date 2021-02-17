@@ -1,5 +1,9 @@
 * find . -type f -name "*.yaml" -exec echo {} \; -exec yq r {} version \; -exec echo "" \;
   
+* ```bash
+  if [ "$#" -eq 0 ]
+  ```
+  
 * var=1 && for i in *.wav; do mv $i "noise_ahh_${var}.wav"; var=$((var+1)); done
   
   * rename files 1..n
