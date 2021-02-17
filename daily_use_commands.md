@@ -1,3 +1,5 @@
+* find . -type f -name "*.yaml" -exec echo {} \; -exec yq r {} version \; -exec echo "" \;
+  
 * X="filename.txt"
   
   * ${X%.*}  -- filename 
