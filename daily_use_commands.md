@@ -5,6 +5,11 @@
   ```
   
 * ```bash
+  date +"%c" 
+  #Current date-time-year
+  ```
+  
+* ```bash
   if [ "$#" -eq 0 ] #check number of input arguments
   ```
   
