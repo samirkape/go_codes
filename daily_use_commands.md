@@ -47,7 +47,7 @@
   
 * ```bash
   var="bar"
-echo "foo_${var}
+  echo "foo_${var}
   # "foo_$var" does not work while concatenating  
   ```
 * ```bash
