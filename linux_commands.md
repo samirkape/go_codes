@@ -1,4 +1,4 @@
-## Updating Linux Commands Used 
+## Linux Commands That Needs To Be Recorded 
 
  ```bash
   find . -type f -name "*.yaml" -exec echo {} \; -exec yq r {} version \; -exec echo "" \;
