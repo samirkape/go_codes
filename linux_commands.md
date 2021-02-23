@@ -60,8 +60,7 @@
   #this will iterate over filenames provided in the csv_filename
  ```
 
-```bash
-## collapsible markdown?
+
 
 <details><summary>CLICK ME</summary>
 <p>
@@ -74,5 +73,4 @@ print("hello world!")
 
 </p>
 </details>
-```
 
