@@ -19,5 +19,4 @@ func main() {
 	if !*n {
 		fmt.Println()
 	}
-
 }
