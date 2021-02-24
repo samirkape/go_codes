@@ -60,12 +60,16 @@
   #this will iterate over filenames provided in the csv_filename
  ```
 
+```bash
+export PS1="\[\e[32m\]\u@\h \[\e[34m\]\W \[\e[32m\]$ "
+```
+
 
 
 <details><summary>Log</summary>
 <p>
 
-​```python
+```python
 print("hello world!")
 ​```
 
@@ -73,3 +77,5 @@ print("hello world!")
 </details>
 ```
 
+
+```
