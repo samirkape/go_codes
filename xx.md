@@ -1,7 +1,9 @@
 <details><summary>example 3 (click to expand)</summary>
   
   * Input
-    * Hi
+    * .wav audio file
+    * output directory
+  * Generated output description:  
   
   ```text
   weee
