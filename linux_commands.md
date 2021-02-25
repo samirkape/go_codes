@@ -112,8 +112,7 @@ Down            Next command from the History
 Ctrl+n          Next command from the History
 Ctrl+p          previous command from the History
 
-Ctrl+xx         Toggle between first and current position
-    ```
+Ctrl+xx         Toggle between first and current position```
     
 </p>
 </details>
