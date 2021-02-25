@@ -64,21 +64,57 @@
 export PS1="\[\e[32m\]\u@\h \[\e[34m\]\W \[\e[32m\]$ "
 ```
 
-
-
 <details><summary>Log</summary>
 <p>
-* Clean up the line: You can use `Ctrl+U` to clear up to the beginning.
-* Clean up the line: `Ctrl+E Ctrl+U` to wipe the current line in the terminal
-* Clean up the line: `Ctrl+A Ctrl+K` to wipe the current line in the terminal
-* Cancel the current command/line: `Ctrl+C`.
-* Recall the deleted command: `Ctrl+Y (then Alt+Y)`
-* Go to beginning of the line: `Ctrl+A`
-* Go to end of the line: `Ctrl+E`
-* Remove the forward words for example, if you are middle of the command: `Ctrl+K`
-* Remove characters on the left, until the beginning of the word: `Ctrl+W`
-* To clear your entire command prompt: `Ctrl + L`
-* Toggle between the start of line and current cursor position: `Ctrl + XX`
+    
+```bash
+TERINAL Shortcuts Lists:
+
+Left            Move back one character
+Right           Move forward one character
+Ctrl+b          Move back one character
+Ctrl+f          Move forward one character
+
+Alt+Left        Move back one word
+Alt+Right       Move forward one word
+Alt+b           Move back one word
+Alt+f           Move forward one word
+
+Cmd+Left        Move cursor to start of line
+Cmd+Right       Move cursor to end of line
+Ctrl+a          Move cursor to start of line
+Ctrl+e          Move cursor to end of line
+
+Ctrl+d          Delete character after cursor
+Backspace       Delete character before cursor
+
+Alt+Backspace   Delete word before cursor
+Ctrl+w          Delete word before cursor
+Alt+w           Delete word before the cursor
+Alt+d           Delete word after the cursor
+
+Cmd+Backspace   Delete everything before the cursor
+Ctrl+u          Delete everything before the cursor
+Ctrl+k          Delete everything after the cursor
+
+Ctrl+l          Clear the terminal
+
+Ctrl+c          Cancel the command
+Ctrl+y          Paste the last deleted command
+Ctrl+_          Undo
+
+Ctrl+r          Search command in history - type the search term
+Ctrl+j          End the search at current history entry and run command
+Ctrl+g          Cancel the search and restore original line
+
+Up              previous command from the History
+Down            Next command from the History
+Ctrl+n          Next command from the History
+Ctrl+p          previous command from the History
+
+Ctrl+xx         Toggle between first and current position
+    ```
+    
 </p>
 </details>
 
