@@ -1,5 +1,4 @@
 <details><summary>example 3 (click to expand)</summary>
-
   \```text
   weee
     weee
