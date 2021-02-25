@@ -1,6 +1,7 @@
 <details><summary>example 3 (click to expand)</summary>
+  
   * Input
-  *   Hi
+  *  Hi
   
   ```text
   weee
