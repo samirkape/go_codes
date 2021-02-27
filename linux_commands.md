@@ -1,6 +1,9 @@
 ## Linux Commands That Needs To Be Recorded 
 
  ```bash
+ #check 
+ 
+ ```bash
   find . -type f -name "*.yaml" -exec echo {} \; -exec yq r {} version \; -exec echo "" \;
  ```
 
@@ -63,6 +66,7 @@
 ```bash
 export PS1="\[\e[32m\]\u@\h \[\e[34m\]\W \[\e[32m\]$ "
 ```
+
 
 <details><summary>Terminal Shortcuts List</summary>
 	
