@@ -1,29 +1,37 @@
 ## Linux Commands That Needs To Be Recorded 
 
  ```bash
- #check 
+#check the return type of any command executed
+e.g mv x y 
+result=$?   
+if [ $result -ne 0 ]    # check if move is successful
+then
+    echo " "
+    echo "error occured!"
+    exit $result
+fi
+```
  
  ```bash
-  find . -type f -name "*.yaml" -exec echo {} \; -exec yq r {} version \; -exec echo "" \;
+find . -type f -name "*.yaml" -exec echo {} \; -exec yq r {} version \; -exec echo "" \;
  ```
 
  ```bash
-  date +"%c" 
-  #Current date-time-year
+date +"%c"  #Current date-time-year
  ```
 
  ```bash
-  if [ "$#" -eq 0 ] #check number of input arguments
+if [ "$#" -eq 0 ] #check number of input arguments
  ```
 
  ```bash
-  var=1 && for i in *.wav; do mv $i "noise_ahh_${var}.wav"; var=$((var+1)); done
+var=1 && for i in *.wav; do mv $i "noise_ahh_${var}.wav"; var=$((var+1)); done
   #rename files 1..n
  ```
 
  ```bash
-  X="filename.txt"
-  ${X%.*}  -- filename 
+X="filename.txt"
+${X%.*}  -- filename 
  ```
 
  ```bash
@@ -32,35 +40,35 @@
  ```
 
  ```bash
-  sed -i '/delete-line-by-text-token/d' file.txt
-  #No substitute (s) at start
+sed -i '/delete-line-by-text-token/d' file.txt 
+#No substitute (s/) at start
  ```
 
  ```bash
-  sed -i '/*----*/d' file.txt
+sed -i '/*----*/d' file.txt
   #asterisk = wildcard
  ```
 
  ```bash
-  head -n 1 filename 
+head -n 1 filename 
  ```
 
  ```bash
-  scp -i pem_file.pem user@ip_addr:/path/to/the/file  out_dir 
+scp -i pem_file.pem user@ip_addr:/path/to/the/file  out_dir 
  ```
 
  ```bash
-  scp username@ip_addr:/path/to/the/file out_dir 
+scp username@ip_addr:/path/to/the/file out_dir 
  ```
 
  ```bash
-  var="bar"
-  echo "foo_${var}
-  # "foo_$var" does not work while concatenating  
+var="bar"
+echo "foo_${var}
+# "foo_$var" does not work while concatenating  
  ```
  ```bash
-  for file in `cat $csv_filename`; do echo $file; done
-  #this will iterate over filenames provided in the csv_filename
+for file in `cat $csv_filename`; do echo $file; done
+#this will iterate over filenames provided in the csv_filename
  ```
 
 ```bash
