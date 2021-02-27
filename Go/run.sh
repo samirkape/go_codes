@@ -1,6 +1,8 @@
 #!/bin/bash
 
-while getopts "b:r:d:" opt; do
+unset name
+
+while getopts "c:b:r:d:" opt; do
 
 case $opt in
 
@@ -11,14 +13,17 @@ echo "Build Successful"
 ;;
 
 r)
-if [ -f build/${OPTARG%.*} ]
+go build $OPTARG 
+result=$?
+if [ $result -ne 0 ]
 then
-    echo "Running..."
-    ./build/${OPTARG%.*} $3
-else
-    echo "Build not found..."
-    exit -1
+    echo " "
+    echo "error occured!"
+    exit $result
 fi
+mv ${OPTARG%.*} build/
+echo "Build Successful"
+./build/${OPTARG%.*} $3
 ;;
 
 d)
