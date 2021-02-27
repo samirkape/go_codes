@@ -1,6 +1,6 @@
 
  ```bash
- mkdir -p /gp/parent/child  
+ mkdir -p gp/parent/child  
  # -p = while creating child, 
  # creates gp and parent if not already present
  ```
