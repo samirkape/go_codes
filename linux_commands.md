@@ -64,7 +64,7 @@
 export PS1="\[\e[32m\]\u@\h \[\e[34m\]\W \[\e[32m\]$ "
 ```
 
-<details><summary>TERINAL Shortcuts Lists</summary>
+<details><summary>Terminal Shortcuts List</summary>
 	
 ```text
 
@@ -114,7 +114,7 @@ Ctrl+xx         Toggle between first and current position
 ```
 </details>
 
-<details><summary>TERINAL Shortcuts Lists</summary>
+<details><summary>One More List</summary>
 
 * `Ctrl+a` Move cursor to start of line
 * `Ctrl+e` Move cursor to end of line
@@ -138,3 +138,5 @@ Ctrl+xx         Toggle between first and current position
 * `Ctrl+g` Cancel the search and restore original line
 * `Ctrl+n` Next command from the History
 * `Ctrl+p` previous command from the History
+
+</details>
