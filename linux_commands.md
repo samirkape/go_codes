@@ -1,6 +1,12 @@
 ## Linux Commands That Needs To Be Recorded 
 
  ```bash
+ mkdir -p /gp/parent/child  
+ # -p = while creating child, 
+ # creates gp and parent if not already present
+ ```
+ 
+ ```bash
 #check the return type of any command executed
 e.g 
 mv x y 
