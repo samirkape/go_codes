@@ -1,4 +1,3 @@
-## Linux Commands That Needs To Be Recorded 
 
  ```bash
  mkdir -p /gp/parent/child  
