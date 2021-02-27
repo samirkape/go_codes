@@ -1,4 +1,3 @@
-## Linux Commands That Needs To Be Recorded 
 
  ```bash
 #check the return type of any command executed
