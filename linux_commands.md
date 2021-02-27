@@ -64,11 +64,9 @@
 export PS1="\[\e[32m\]\u@\h \[\e[34m\]\W \[\e[32m\]$ "
 ```
 
-<details><summary>Log</summary>
-<p>
-    
-```bash
-TERINAL Shortcuts Lists:
+<details><summary>TERINAL Shortcuts Lists</summary>
+	
+```text
 
 Left            Move back one character
 Right           Move forward one character
@@ -112,13 +110,11 @@ Down            Next command from the History
 Ctrl+n          Next command from the History
 Ctrl+p          previous command from the History
 
-Ctrl+xx         Toggle between first and current position```
-    
-</p>
+Ctrl+xx         Toggle between first and current position
+```
 </details>
 
-
-
+<details><summary>TERINAL Shortcuts Lists</summary>
 
 * `Ctrl+a` Move cursor to start of line
 * `Ctrl+e` Move cursor to end of line
