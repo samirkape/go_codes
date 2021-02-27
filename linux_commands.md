@@ -2,7 +2,8 @@
 
  ```bash
 #check the return type of any command executed
-e.g mv x y 
+e.g 
+mv x y 
 result=$?   
 if [ $result -ne 0 ]    # check if move is successful
 then
@@ -35,7 +36,7 @@ ${X%.*}  -- filename
  ```
 
  ```bash
-  sed -i 's/search/replace/g' file.txt
+sed -i 's/search/replace/g' file.txt
   #-i - inplace
  ```
 
@@ -66,6 +67,7 @@ var="bar"
 echo "foo_${var}
 # "foo_$var" does not work while concatenating  
  ```
+
  ```bash
 for file in `cat $csv_filename`; do echo $file; done
 #this will iterate over filenames provided in the csv_filename
@@ -74,7 +76,6 @@ for file in `cat $csv_filename`; do echo $file; done
 ```bash
 export PS1="\[\e[32m\]\u@\h \[\e[34m\]\W \[\e[32m\]$ "
 ```
-
 
 <details><summary>Terminal Shortcuts List</summary>
 	
