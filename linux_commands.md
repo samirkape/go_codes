@@ -1,10 +1,16 @@
+```bash
+info command 
+# produces better information than man command
+e.g info grep
+```
+
 
  ```bash
  mkdir -p gp/parent/child  
  # -p = while creating child, 
  # creates gp and parent if not already present
  ```
- 
+
  ```bash
 #check the return type of any command executed
 e.g 
@@ -16,8 +22,8 @@ then
     echo "error occured!"
     exit $result
 fi
-```
- 
+ ```
+
  ```bash
 find . -type f -name "*.yaml" -exec echo {} \; -exec yq r {} version \; -exec echo "" \;
  ```
@@ -83,7 +89,7 @@ export PS1="\[\e[32m\]\u@\h \[\e[34m\]\W \[\e[32m\]$ "
 ```
 
 <details><summary>Terminal Shortcuts List</summary>
-	
+
 ```text
 
 Left            Move back one character
