@@ -59,7 +59,18 @@ sed -i '/delete-line-by-text-token/d' file.txt
  ```bash
 sed -i '/*----*/d' file.txt
   #asterisk = wildcard
+  #Wild-cards are handled completely by the shell before the associated
+      #program even runs
+  #more about wildcards  
  ```
+
+```text
+* -- Zero or more consecutive characters
+? -- Any single character
+[set] -- Any single character in the given set, most commonly a sequence of characters, like [aeiouAEIOU] for all vowels, or a range with a
+  dash, like [A-Z] for all capital letters
+[^set] -- Any single character not in the given set, such as [^0-9] to mean any nondigit
+```
 
  ```bash
 head -n 1 filename 
