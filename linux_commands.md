@@ -3,7 +3,10 @@ info command
 # produces better information than man command
 e.g info grep
 ```
-
+```bash
+cut -f2 -d, csv_file.csv
+#
+```
 
  ```bash
  mkdir -p gp/parent/child  
