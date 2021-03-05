@@ -1,11 +1,14 @@
 ```bash
 info command 
-# produces better information than man command
+# produces better command information than man 
 e.g info grep
 ```
+
 ```bash
 cut -f2 -d, csv_file.csv
-#
+#-f = column number 
+#-d = delimiter
+#cuts the specified column out of csv
 ```
 
  ```bash
