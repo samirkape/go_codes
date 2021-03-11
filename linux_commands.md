@@ -109,8 +109,7 @@ for file in `cat $csv_filename`; do echo $file; done
 ```bash
 export PS1="\[\e[32m\]\u@\h \[\e[34m\]\W \[\e[32m\]$ "
 ```
-
-<details><summary>Terminal Shortcuts List</summary>
+Terminal Shortcuts
 |                                                              |                             |
 | ------------------------------------------------------------ | --------------------------- |
 | Go to beginning of command line                              | ctrl + a                    |
@@ -142,5 +141,3 @@ export PS1="\[\e[32m\]\u@\h \[\e[34m\]\W \[\e[32m\]$ "
 | Puts current process into a suspended background process     | ctrl + z                    |
 | Kill the currently running process                           | ctrl + c                    |
 |                                                              |                             |
-
-</details>
