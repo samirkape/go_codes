@@ -3,9 +3,12 @@
 package main
 
 func main() {
-	// var slice []int = make([]int, 6, 6)
-	slice := []int{1, 2, 3, 4, 5}
+	var slice []int = make([]int, 5, 6)
+	//slice := []int{1, 2, 3, 4, 5}
 	slice = myappend(slice[:], 6)
+
+	v_slice := []int{1, 2, 3, 4, 5}
+	v_slice = myappend_variadic(v_slice, v_slice...)
 }
 
 func myappend(s []int, val int) []int {
@@ -22,5 +25,24 @@ func myappend(s []int, val int) []int {
 		ns = s[:s_len]
 	}
 	ns[s_len-1] = val
+	return ns
+}
+
+func myappend_variadic(s []int, val ...int) []int {
+	s_len := len(s) + len(val)
+	s_cap := cap(s)
+	var ns []int
+	if s_len > s_cap {
+		ns_len := 2 * len(s)
+		ns_cap := 0
+		if s_cap < ns_len {
+			ns_cap = ns_len
+		}
+		ns = make([]int, ns_len, ns_cap)
+		copy(ns, s)
+	} else {
+		ns = s[:s_len]
+	}
+	copy(ns[len(s):], val)
 	return ns
 }
