@@ -1,3 +1,3 @@
-
-
-![img](./derwei.png)
+# Specifications
+## Language: Go
+## Version: 1.15
