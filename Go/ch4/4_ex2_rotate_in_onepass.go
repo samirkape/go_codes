@@ -12,8 +12,8 @@ func main() {
 	fmt.Println(slice_r)
 }
 
-func rotate_left(sa [6]int, pos int) []int {
-	s := sa[:]
+func rotate_left(a [6]int, pos int) []int {
+	s := a[:]
 	var tmp []int = make([]int, pos)
 	copy(tmp, s[:pos])
 	copy(s[:], s[pos:])
@@ -21,8 +21,8 @@ func rotate_left(sa [6]int, pos int) []int {
 	return s
 }
 
-func rotate_right(sa [6]int, pos int) []int {
-	s := sa[:]
+func rotate_right(a [6]int, pos int) []int {
+	s := a[:]
 	var tmp []int = make([]int, pos)
 	copy(tmp, s[len(s)-pos:])
 	copy(s[pos:], s[:])
