@@ -7,7 +7,9 @@ import "fmt"
 func main() {
 	str := "sameer nitin kape"
 	o_map := count_ocurrances(str)
+	key := "m"
 	print_map(o_map)
+	fmt.Println(keyCheck(o_map, key))
 }
 
 func print_map(m map[string]int) {
@@ -24,4 +26,9 @@ func count_ocurrances(str string) map[string]int {
 	}
 	delete(m, " ")
 	return m
+}
+
+func keyCheck(m map[string]int, str string) bool {
+	_, ok := m[str]
+	return ok
 }
