@@ -21,9 +21,9 @@ then
     echo "error occured!"
     exit $result
 fi
-mv ${OPTARG%.*} build/
+mv `basename ${OPTARG%.*}` build/
 echo "Build Successful"
-./build/${OPTARG%.*} $3
+./build/`basename ${OPTARG%.*}` $3
 ;;
 
 d)
