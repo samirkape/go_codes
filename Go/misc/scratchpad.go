@@ -4,14 +4,49 @@ package main
 
 import "fmt"
 
-func main() {
-	hw := "こんにちは世界"
-	fmt.Println(hw)
+var m = make(map[string]int)
 
-	slice_append_variac()
+func main() {
+	mMapExp()
+
+	//slice_append_variac()
 }
 
-func slice_append_variac() {
+func mMapExp() {
+
+	hw := "Samir Kape"
+	sl := mStringtoSlice(hw)
+	// str1 := mSlicetoString(sl)
+	mAdd(sl)
+	ml := m
+	fmt.Println(ml)
+}
+
+func mAdd(ls []string) {
+	m[mSlicetoString(ls)]++
+}
+
+func mCount(ls []string) int {
+	return m[mSlicetoString(ls)]
+}
+
+func SliceAppendVariac() {
 	s := []int{1, 2, 3, 4, 5}
 	s = append(s, s...) // 3 dots are neccesary if you want to append a slice into the slice
 }
+
+func mStringtoSlice(s string) []string {
+	var slice []string
+	for _, i := range s {
+		slice = append(slice, string(i))
+	}
+	return slice
+}
+
+func mSlicetoString(sltr []string) string {
+	return fmt.Sprintf("%q", sltr)
+}
+
+// func slice_to_string2(sltr []string) string { // Does not work
+// 	return string(sltr)
+// }
