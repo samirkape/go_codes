@@ -2,14 +2,31 @@
 
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"reflect"
+)
 
 var m = make(map[string]int)
 
 func main() {
 	mMapExp()
-
+	rReflect()
+	sStruct()
 	//slice_append_variac()
+}
+
+func sStruct() {
+	type s_try struct{ a, b int }
+	pp := s_try{b: 2}
+	fmt.Println(pp)
+}
+
+func rReflect() {
+	hw := "Samir Kape"
+	s1 := hw[:5]
+	s2 := hw[0:5]
+	fmt.Println(reflect.DeepEqual(s1, s2))
 }
 
 func mMapExp() {
