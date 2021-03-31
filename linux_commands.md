@@ -1,6 +1,23 @@
 ```bash
 # how to compare which version of the linux program is installed
+yq_version=`yq --version | head -n1 | cut -d" " -f3`
 
+version_greater_equal()
+{
+    printf '%s\n%s\n' "$2" "$1" | sort --check=quiet --version-sort
+}
+
+version_greater_equal "${yq_version}" 2.2.1 || { echo "found yq ${yq_version} need 2.2.1"; exit -1; }
+```
+
+```bash
+$ echo "Samir Nitin Kape" | cut -d" " -f3
+$ Kape
+
+$ echo "Samir Nitin Kape" | cut -d" " -f1
+$ Samir
+
+-d" " # Space is a Delimiter 
 ```
 
 ```bash
