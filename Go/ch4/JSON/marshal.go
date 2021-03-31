@@ -11,7 +11,7 @@ import (
 type Movie struct {
 	Title  string
 	Year   int  `json:"released"`
-	Color  bool `json:"color,omitempty"`
+	Color  bool `json:"color,omitempty"` // No space allowed in `` qoutes
 	Actors []string
 }
 
