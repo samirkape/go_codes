@@ -22,7 +22,7 @@ var movies = []Movie{
 
 func main() {
 	Marshal()
-	Print()
+	MarshalIndent()
 }
 
 func Marshal() {
@@ -33,7 +33,7 @@ func Marshal() {
 	fmt.Printf("%s\n", data)
 }
 
-func Print() {
+func MarshalIndent() {
 	data, err := json.MarshalIndent(movies, "", " ") // Human readable indentation
 	if err != nil {
 		log.Fatalf("JSON marshaling failed: %s", err)
