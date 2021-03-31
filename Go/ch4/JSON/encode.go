@@ -26,7 +26,7 @@ func main() {
 }
 
 func Marshal() {
-	data, err := json.Marshal(movies)
+	data, err := json.Marshal(movies) // No white spaces
 	if err != nil {
 		log.Fatalf("JSON marshaling failed: %s", err)
 	}
@@ -34,7 +34,7 @@ func Marshal() {
 }
 
 func Print() {
-	data, err := json.MarshalIndent(movies, "", " ")
+	data, err := json.MarshalIndent(movies, "", " ") // Human readable indentation
 	if err != nil {
 		log.Fatalf("JSON marshaling failed: %s", err)
 	}
