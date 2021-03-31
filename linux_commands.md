@@ -4,9 +4,10 @@
 ```
 
 ```bash
-whereis -b yq
+1. whereis -b yq
 # finds all programs with name yq 
 # export WHEREIS_DEBUG=all will print debug output 
+2. type -a yq
 ```
 
 ```bash
