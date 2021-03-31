@@ -1,6 +1,12 @@
 ```bash
+# how to compare which version of the linux program is installed
+
+```
+
+```bash
 whereis -b yq
-# finds all programs with name containing yq 
+# finds all programs with name yq 
+# export WHEREIS_DEBUG=all will print debug output 
 ```
 
 ```bash
