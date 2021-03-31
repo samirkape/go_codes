@@ -11,7 +11,7 @@ import (
 type Movie struct {
 	Title  string
 	Year   int  `json:"Released"`
-	Color  bool `json: "color,omitempty"`
+	Color  bool `json:"color,omitempty"`
 	Actors []string
 }
 
