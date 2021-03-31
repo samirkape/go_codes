@@ -1,4 +1,9 @@
 ```bash
+whereis -b yq
+# finds all programs with name containing yq 
+```
+
+```bash
 info command 
 # produces better command information than man 
 e.g info grep
