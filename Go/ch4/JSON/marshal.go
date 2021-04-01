@@ -8,7 +8,7 @@ import (
 	"log"
 )
 
-type Movie struct {
+type Movie struct { // Any field with non-capital first letter will not be marshalled
 	Title  string
 	Year   int  `json:"released"`
 	Color  bool `json:"color,omitempty"` // No space allowed in `` qoutes
