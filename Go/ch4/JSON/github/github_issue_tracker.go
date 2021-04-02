@@ -6,13 +6,13 @@ import (
 	"fmt"
 	"log"
 	"os"
-
-	"github"
+	"samgithub"
 )
 
 func main() {
 	// issue := []string{"repo:golang/go is:open json decoder"}
-	result, err := github.SearchIssues(os.Args[1:])
+	// result, err := github.SearchIssues(os.Args[1:])
+	result, err := samgithub.SearchIssues(os.Args[1:])
 	if err != nil {
 		log.Fatal(err)
 	}

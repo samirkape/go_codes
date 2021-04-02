@@ -1,10 +1,11 @@
 // Package github provides a Go API for the GitHub issue tracker.
 // See https://developer.github.com/v3/search/#search-issues.
-package github
+package samgithub
 
 import "time"
 
 const IssuesURL = "https://api.github.com/search/issues"
+const Starred = "https://api.github.com/user/starred/samirkape/starred"
 
 type IssuesSearchResult struct {
 	TotalCount int `json:"total_count"`
