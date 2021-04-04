@@ -1,5 +1,5 @@
 ```bash
-# how to compare which version of the linux program is installed
+ # how to compare which version of the linux program is installed
 yq_version=`yq --version | head -n1 | cut -d" " -f3`
 
 version_greater_equal()
