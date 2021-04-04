@@ -1,5 +1,5 @@
 ```bash
- # how to compare which version of the linux program is installed
+# how to compare which version of the linux program is installed
 yq_version=`yq --version | head -n1 | cut -d" " -f3`
 
 version_greater_equal()
@@ -137,4 +137,9 @@ for file in `cat $csv_filename`; do echo $file; done
 
 ```bash
 export PS1="\[\e[32m\]\u@\h \[\e[34m\]\W \[\e[32m\]$ "
+```
+
+### VSCode Shortcuts
+```bash
+  1. Ctrl + Shift + \ # Jump to matching bracket
 ```
