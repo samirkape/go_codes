@@ -146,5 +146,33 @@ export PS1="\[\e[32m\]\u@\h \[\e[34m\]\W \[\e[32m\]$ "
   3. Alt + Z            # Word wrap
   4. CMD + P            # Show files
   5. F8                 # Goto next error or warning 
-  
+  6. Alt + Shift + F    # Format Document
+  7. Ctrl + `           # Show terminal
 ```
+
+<details><summary>Terminal Shortcuts List</summary>
+
+* `Ctrl+a` Move cursor to start of line
+* `Ctrl+e` Move cursor to end of line
+* `Ctrl+b` Move back one character
+* `Alt+b` Move back one word
+* `Ctrl+f` Move forward one character
+* `Alt+f` Move forward one word
+* `Ctrl+d` Delete current character
+* `Ctrl+w` Cut the last word
+* `Ctrl+k` Cut everything after the cursor
+* `Alt+d` Cut word after the cursor
+* `Alt+w` Cut word before the cursor
+* `Ctrl+y` Paste the last deleted command
+* `Ctrl+_` Undo
+* `Ctrl+u` Cut everything before the cursor
+* `Ctrl+xx` Toggle between first and current position
+* `Ctrl+l` Clear the terminal
+* `Ctrl+c` Cancel the command
+* `Ctrl+r` Search command in history - type the search term
+* `Ctrl+j` End the search at current history entry
+* `Ctrl+g` Cancel the search and restore original line
+* `Ctrl+n` Next command from the History
+* `Ctrl+p` previous command from the History
+
+</details>
