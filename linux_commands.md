@@ -145,5 +145,6 @@ export PS1="\[\e[32m\]\u@\h \[\e[34m\]\W \[\e[32m\]$ "
   2. Shift + Alt + A    # Block comment
   3. Alt + Z            # Word wrap
   4. CMD + P            # Show files
+  5. F8                 # Goto next error or warning 
   
 ```
