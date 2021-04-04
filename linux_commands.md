@@ -138,35 +138,3 @@ for file in `cat $csv_filename`; do echo $file; done
 ```bash
 export PS1="\[\e[32m\]\u@\h \[\e[34m\]\W \[\e[32m\]$ "
 ```
-Terminal Shortcuts
-|                                                              |                             |
-| ------------------------------------------------------------ | --------------------------- |
-| Go to beginning of command line                              | ctrl + a                    |
-| Go to end of command line                                    | ctrl + e                    |
-| Move back one character                                      | ctrl + b                    |
-| Move forward one character                                   | ctrl + f                    |
-| Move cursor forward one word                                 | alt + f or ctrl + right     |
-| Move cursor back one word                                    | alt + b or ctrl + left      |
-| Toggle between current cursor position and beginning of the line (Bash) | ctrl + x ctrl + x           |
-| **Control**                                                  |                             |
-| Clears the Screen                                            | ctrl + l                    |
-| Pause terminal output                                        | ctrl + s                    |
-| Resume terminal output after it was paused                   | ctrl + q                    |
-| **Editing**                                                  |                             |
-| Undo last action                                             | ctrl + shift + -            |
-| Swap the last two characters before the cursor               | ctrl + t                    |
-| Swap current word with previous                              | alt + t                     |
-| Delete everything forward to end of line                     | ctrl + k                    |
-| Delete backward to the beginning of the current word         | ctrl + w or alt + backspace |
-| Delete the character after the current cursor position or exit shell | ctrl + d                    |
-| Paste whatever was cut by the last cut command               | ctrl + y                    |
-| Delete to the beginning of the line                          | ctrl + u                    |
-| Delete to the end of the line                                | ctrl + k                    |
-| **History**                                                  |                             |
-| Search command history                                       | ctrl + r                    |
-| View previous command in the history                         | ctrl + p or up              |
-| View next command in the history                             | ctrl + n or down            |
-| **Processes**                                                |                             |
-| Puts current process into a suspended background process     | ctrl + z                    |
-| Kill the currently running process                           | ctrl + c                    |
-|                                                              |                             |
