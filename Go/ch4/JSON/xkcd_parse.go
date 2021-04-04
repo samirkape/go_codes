@@ -19,11 +19,12 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-type Comic struct { // Any field with non-capital first letter will not be marshalled
+type Comic struct {
 	Transcript string `json:"transcript"`
 }
 
 var URL string = "https://xkcd.com"
+var MongoURI = "mongodb://localhost:27017"
 var Count int = 1
 var dbName string
 var dbCollection string
@@ -34,7 +35,7 @@ func main() {
 }
 
 func Connect() *mongo.Client {
-	clientOptions := options.Client().ApplyURI("mongodb://localhost:27017")
+	clientOptions := options.Client().ApplyURI(MongoURI)
 	client, err := mongo.Connect(context.Background(), clientOptions)
 	if err != nil {
 		log.Fatal(err)
