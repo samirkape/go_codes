@@ -141,5 +141,9 @@ export PS1="\[\e[32m\]\u@\h \[\e[34m\]\W \[\e[32m\]$ "
 
 ### VSCode Shortcuts
 ```bash
-  1. Ctrl + Shift + \ # Jump to matching bracket
+  1. Ctrl + Shift + \   # Jump to matching bracket
+  2. Shift + Alt + A    # Block comment
+  3. Alt + Z            # Word wrap
+  4. CMD + P            # Show files
+  
 ```
