@@ -27,11 +27,11 @@ type Comic struct {
 	ComicNum   int    `json:"ComicNum"`
 }
 
-var URL string = "https://xkcd.com"
+var URL = "https://xkcd.com"
 var URLSuffix = "/info.0.json"
 var MongoURI = "mongodb://localhost:27017"
 var CollectionName = "xckdComics"
-var Count int = 500
+var Count = 500
 var dbName string
 var dbCollection string
 
