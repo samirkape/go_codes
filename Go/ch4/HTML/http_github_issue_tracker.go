@@ -29,6 +29,7 @@ type Issue struct {
 	CreatedAt time.Time `json:"created_at"`
 	Body      string    // in Markdown format
 	Sort      string
+	Author    string
 }
 type User struct {
 	Login   string
@@ -42,6 +43,7 @@ Number: {{.Number}}
 User:   {{.User.Login}}
 Title:  {{.Title | printf "%.64s"}}
 Age:    {{.CreatedAt | daysAgo}} days
+Author: {{.Author | printf "%s"}}
 {{end}}`
 
 //!-template
@@ -49,6 +51,10 @@ Age:    {{.CreatedAt | daysAgo}} days
 //!+daysAgo
 func daysAgo(t time.Time) int {
 	return int(time.Since(t).Hours() / 24)
+}
+
+func author() string {
+	return "Samir Kape"
 }
 
 var report = template.Must(template.New("issuelist").
@@ -94,6 +100,9 @@ func SearchIssues(terms []string) (*IssuesSearchResult, error) {
 	if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
 		resp.Body.Close()
 		return nil, err
+	}
+	for i := 0; i < len(result.Items); i++ {
+		result.Items[i].Author = "Samir Kape"
 	}
 	resp.Body.Close()
 	return &result, nil
