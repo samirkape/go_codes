@@ -150,6 +150,12 @@ export PS1="\[\e[32m\]\u@\h \[\e[34m\]\W \[\e[32m\]$ "
   7. Ctrl + `           # Show terminal
 ```
 
+### macOS Shortcuts
+```bash
+CMD + , # Opens app settings
+
+```
+
 <details><summary>Terminal Shortcuts List</summary>
 
 * `Ctrl+a` Move cursor to start of line
