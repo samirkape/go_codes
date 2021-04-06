@@ -29,11 +29,11 @@ type Issue struct {
 	CreatedAt time.Time `json:"created_at"`
 	Body      string    // in Markdown format
 	Sort      string
-	Author    string
 }
 type User struct {
 	Login   string
 	HTMLURL string `json:"html_url"`
+	Author  string
 }
 
 //!+template
@@ -43,7 +43,7 @@ Number: {{.Number}}
 User:   {{.User.Login}}
 Title:  {{.Title | printf "%.64s"}}
 Age:    {{.CreatedAt | daysAgo}} days
-Author: {{.Author | printf "%s"}}
+Author: {{.User.Author | printf "%s"}}
 {{end}}`
 
 //!-template
@@ -102,7 +102,7 @@ func SearchIssues(terms []string) (*IssuesSearchResult, error) {
 		return nil, err
 	}
 	for i := 0; i < len(result.Items); i++ {
-		result.Items[i].Author = "Samir Kape"
+		result.Items[i].User.Author = "Samir Kape"
 	}
 	resp.Body.Close()
 	return &result, nil
