@@ -46,8 +46,13 @@ func RaiseFatal(err error) {
 	}
 }
 
-func handler(w http.ResponseWriter, _ *http.Request) {
-	MovieName := os.Args[1]
+func handler(w http.ResponseWriter, r *http.Request) {
+	_MovieName, ok := r.URL.Query()["name"]
+	if !ok || _MovieName == nil {
+		fmt.Fprintf(w, "Invalid Query")
+		return
+	}
+	MovieName := fmt.Sprintf("%s", _MovieName)
 	//MovieName := "casanova"
 	url := BuildQuery(MovieName)
 	PosterURL := FetchPosterURL(url)
@@ -67,15 +72,15 @@ func CreateFile(MovieName string) (*os.File, string) {
 
 func FetchImg(w io.Writer, PosterURL string) {
 	response, err := http.Get(PosterURL)
-	if err != nil {
-		response.Body.Close()
-		log.Fatal(err)
+	if err != nil || response.StatusCode > 300 {
+		fmt.Fprintf(w, "Movie Not found")
+		return
 	}
 	// data, err := ioutil.ReadAll(response.Body)
 	io.Copy(w, response.Body)
 	if err != nil {
 		response.Body.Close()
-		log.Fatal(err)
+		fmt.Fprintf(w, "Write error")
 	}
 	response.Body.Close()
 }
