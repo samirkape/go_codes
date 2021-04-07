@@ -36,7 +36,6 @@ type User struct {
 	Author  string
 }
 
-//!+template
 const templ = `{{.TotalCount}} issues:
 {{range .Items}}----------------------------------------
 Number: {{.Number}}
@@ -46,7 +45,25 @@ Age:    {{.CreatedAt | daysAgo}} days
 Author: {{.User.Author | printf "%s"}}
 {{end}}`
 
-//!-template
+var issueList = template.Must(template.New("issuelist").Parse(`
+<h1>{{.TotalCount}} issues</h1>
+<table>
+<tr style='text-align: left'>
+  <th>#</th>
+  <th>State</th>
+  <th>User</th>
+  <th>Title</th>
+</tr>
+{{range .Items}}
+<tr>
+  <td><a href='{{.HTMLURL}}'>{{.Number}}</td>
+  <td>{{.State}}</td>
+  <td><a href='{{.User.HTMLURL}}'>{{.User.Login}}</a></td>
+  <td><a href='{{.HTMLURL}}'>{{.Title}}</a></td>
+</tr>
+{{end}}
+</table>
+`))
 
 //!+daysAgo
 func daysAgo(t time.Time) int {
@@ -78,7 +95,7 @@ func handler(w http.ResponseWriter, _ *http.Request) {
 		log.Fatal(err)
 	}
 
-	if err := report.Execute(w, result); err != nil {
+	if err := issueList.Execute(w, result); err != nil {
 		log.Fatal(err)
 	}
 }
