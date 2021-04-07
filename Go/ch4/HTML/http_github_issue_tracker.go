@@ -14,7 +14,6 @@ import (
 )
 
 const IssuesURL = "https://api.github.com/search/issues"
-const Starred = "https://api.github.com/user/starred/samirkape/starred"
 
 type IssuesSearchResult struct {
 	TotalCount int `json:"total_count"`
