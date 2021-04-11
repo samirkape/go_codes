@@ -1,0 +1,60 @@
+# espanso configuration file
+
+# This is the default configuration file, change it as you like it
+# You can refer to the official documentation:
+# https://espanso.org/docs/
+
+# Matches are the substitution rules, when you type the "trigger" string
+# it gets replaced by the "replace" string.
+matches:
+  # Simple text replacement
+  - trigger: ":pdb"
+    replace: "import pdb; pdb.set_trace()"
+
+  - trigger: "mko"
+    replace: "mkdir output"
+  
+  - trigger: ":demo"
+    replace: "/home/samir/Desktop/all/wav/demo.wav"
+
+  - trigger: "espe"
+    replace: "vi /home/samir/.config/espanso/default.yml"
+
+  - trigger: ":sf"
+    replace: "/media/sf_Desktop/send/"
+  
+  - trigger: "dsk"
+    replace: "~/Desktop/"
+  
+  - trigger: "dwn"
+    replace: "~/Downloads/"
+  
+  - trigger: ":run"
+    replace: "python3 main.py /home/samir/Desktop/all/wav/demo.wav manifest.yaml output/"
+  
+  - trigger: "'wav"
+    replace: "/home/samir/Desktop/all/wav/"
+
+  - trigger: "mkdes"
+    replace: "mkdir /home/samir/Desktop/send/"
+
+  - trigger: "rmf"
+    replace: "rm -rf "
+
+    # Dates
+  - trigger: ":date"
+    replace: "{{mydate}}"
+    vars:
+      - name: mydate
+        type: date
+        params:
+          format: "%m/%d/%Y"
+
+  # Shell commands
+  - trigger: ":shell"
+    replace: "{{output}}"
+    vars:
+      - name: output
+        type: shell
+        params:
+          cmd: "echo Hello from your shell"
