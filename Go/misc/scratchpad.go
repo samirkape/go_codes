@@ -10,10 +10,18 @@ import (
 var m = make(map[string]int)
 
 func main() {
-	mMapExp()
-	rReflect()
-	sStruct()
+	FunctionValues()
+	// mMapExp()
+	// rReflect()
+	// sStruct()
 	//slice_append_variac()
+}
+func add(x, y int) int { return x + y }
+func FunctionValues() {
+	var f func(int, int) int
+	fmt.Printf("%T\n", f)
+	f = add
+	fmt.Printf("%T\n", f)
 }
 
 func sStruct() {
