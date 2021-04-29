@@ -1,29 +1,33 @@
+// Example panic and recover behaviour
 package main
 
 import "fmt"
 
+var arr [4]int
+
 func main() {
-	f()
-	fmt.Println("Returned normally from f.")
+	two()
+	fmt.Println("Exited Normally from one()")
 }
 
-func f() {
+func two() {
 	defer func() {
 		if r := recover(); r != nil {
-			fmt.Println("Recovered in f", r)
+			fmt.Println("Recovered in two() ", r)
 		}
 	}()
-	fmt.Println("Calling g.")
-	g(0)
-	fmt.Println("Returned normally from g.")
+	fmt.Println("Calling three...")
+	three(0)
+	fmt.Println("Exited Normally from three()")
 }
 
-func g(i int) {
+func three(i int) {
 	if i > 3 {
-		fmt.Println("Panicking!")
-		panic(fmt.Sprintf("%v", i))
+		fmt.Println("Panicking...")
+		arr[i] = 5000
+		//panic(fmt.Sprintf("\tvalue at the time of panic: %v", i))
 	}
-	defer fmt.Println("Defer in g", i)
-	fmt.Println("Printing in g", i)
-	g(i + 1)
+	fmt.Println("three: ", i)
+	defer fmt.Println("defer: three: ", i)
+	three(i + 1)
 }
