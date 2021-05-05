@@ -1,4 +1,4 @@
-// Creating a pointer receiver for converting termperature from Fahrenheit to Celsius
+// Creating a pointer receiver for converting temperature from Fahrenheit to Celsius
 
 package main
 
