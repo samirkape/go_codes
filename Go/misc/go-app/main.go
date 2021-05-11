@@ -20,6 +20,7 @@ import (
 
 const (
 	SAMIRCID         = 1346530914
+	GROUPID          = 557832891
 	URL       string = "https://cdn-api.co-vin.in/"
 	URLPATH   string = "api/v2/appointment/sessions/public/calendarByPin"
 	PINQUERY  string = "pincode"
@@ -84,14 +85,14 @@ func RouteLogWriter() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		i := 0 + 1
 		for key, val := range FinalMsg {
-			if key == "Session" + str(i) {
+			if key == "Session"+str(i) {
 				for key1, val1 := range val {
 					write.WriteString(fmt.Sprintf("%s\t%s\n", key1, val1))
 				}
 			}
 			i++
 		}
-		write.WriteString(fmt.Sprintf("%v\n",time.Now()))
+		write.WriteString(fmt.Sprintf("%v\n", time.Now()))
 		c.String(http.StatusOK, write.String())
 	}
 }
@@ -167,8 +168,10 @@ func SendMessage(rmsg map[string]map[string]string, counter map[string]int) erro
 		i++
 	}
 	msg := tgbotapi.NewMessage(SAMIRCID, write.String())
+	msg1 := tgbotapi.NewMessage(GROUPID, write.String())
 	msg.ParseMode = "markdown"
 	_, err = bot.Send(msg)
+	_, err = bot.Send(msg1)
 
 	if err != nil {
 		Println("Error Sending Message")
