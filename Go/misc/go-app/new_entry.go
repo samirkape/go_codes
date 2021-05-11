@@ -130,7 +130,7 @@ func GetSessionInfo() {
 	if reflect.ValueOf(data).IsZero() || len(data.Center) == 0 {
 		Println("No Data Yet")
 	} else {
-		fmt.Println("Fetch Successful:")
+		fmt.Println("Fetch Successful at", time.Now())
 		msg, _ := Filter(data)
 		_ = SendMessage(msg)
 	}
@@ -248,6 +248,10 @@ func FetchV2(url string) (Meta, error) {
 	//request.Header.Set("User-Agent", "User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.76 Safari/537.36")
 
 	resp, err := client.Do(request)
+
+	if resp == nil {
+		return Meta{}, err
+	}
 
 	if err != nil || resp.StatusCode != http.StatusOK {
 		Println("Fetch v2: Unable to Fetch URL")
