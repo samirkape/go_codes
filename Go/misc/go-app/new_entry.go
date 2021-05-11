@@ -21,7 +21,7 @@ import (
 const (
 	DAY              = 14
 	SAMIRCID         = 1346530914
-	GROUPID          = 557832891
+	GROUPID          = -557832891
 	URL       string = "https://cdn-api.co-vin.in/"
 	URLPATH   string = "api/v2/appointment/sessions/public/calendarByPin"
 	PINQUERY  string = "pincode"
