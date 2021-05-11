@@ -127,9 +127,10 @@ func GetSessionInfo() {
 		Println("Unable to parse URL")
 		return // don't exit, rerun if request is rejected
 	}
-	if reflect.ValueOf(data).IsZero() {
+	if reflect.ValueOf(data).IsZero() || len(data.Center) == 0 {
 		Println("No Data Yet")
 	} else {
+		fmt.Println("Fetch Successful:")
 		msg, _ := Filter(data)
 		_ = SendMessage(msg)
 	}
@@ -262,8 +263,6 @@ func FetchV2(url string) (Meta, error) {
 		Println("Unable to Load Response")
 		return Meta{}, err
 	}
-
-	fmt.Println("Fetch Successful:", *CoMeta)
 
 	return *CoMeta, nil
 }
