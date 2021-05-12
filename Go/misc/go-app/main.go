@@ -1,6 +1,7 @@
 package main
 
 import (
+	"builder"
 	"bytes"
 	"encoding/json"
 	"errors"
@@ -18,61 +19,13 @@ import (
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api"
 )
 
-const (
-	SAMIRCID         = 1346530914
-	GROUPID          = -557832891
-	URL       string = "https://cdn-api.co-vin.in/"
-	URLPATH   string = "api/v2/appointment/sessions/public/calendarByPin"
-	PINQUERY  string = "pincode"
-	PINCODE   string = "423601"
-	DATEQUERY string = "date"
-)
-
-type Meta struct {
-	Center []Centers `json:"centers,omitempty"`
-}
-
-type Centers struct {
-	Name     string     `json:"name,omitempty"`
-	Address  string     `json:"address,omitempty"`
-	PinCode  int        `json:"pincode,omitempty"`
-	From     string     `json:"from,omitempty"`
-	To       string     `json:"to,omitempty"`
-	Capacity int        `json:"available_capacity,omitempty"`
-	AgeLimit int        `json:"min_age_limit,omitempty"`
-	Session  []Sessions `json:"sessions"`
-}
-
-type Sessions struct {
-	Date              string   `json:"date,omitempty"`
-	AvailableCapacity int      `json:"available_capacity,omitempty"`
-	MinAge            int      `json:"min_age_limit,omitempty"`
-	Vaccine           string   `json:"vaccine,omitempty"`
-	Slots             []string `json:"slots,omitempty"`
-}
-
-type Needed struct {
-	NumberOfSessions  int
-	NumberOfSlots     int
-	Name              string
-	AvailableCapacity int
-	MinAge            int
-	Vaccine           string
-	Slots             []string
-}
-
-//var Token = os.Getenv("TOKEN")
-var Token = "1890317276:AAE0IpeZ7hCX-FzQsTXnX1g3eBPdST2ZveQ"
-var FinalMsg map[string]map[string]string
-
 func main() {
-	//go RouteLog()
-	Wait()
+	go RouteLog()
+	Poll()
 }
 
-func Wait() {
+func Poll() {
 	t := float64(time.Hour / 100)
-	go RouteLog()
 	for {
 		GetSessionInfo()
 		time.Sleep(time.Duration(t))
@@ -84,7 +37,7 @@ func RouteLogWriter() gin.HandlerFunc {
 	fmt.Printf("%s", "\nInside Logger\n")
 	return func(c *gin.Context) {
 		i := 0 + 1
-		for key, val := range FinalMsg {
+		for key, val := range builder.FinalMsg {
 			if key == "Session"+str(i) {
 				for key1, val1 := range val {
 					write.WriteString(fmt.Sprintf("%s\t%s\n", key1, val1))
@@ -114,7 +67,7 @@ func RouteLog() {
 	router.Use(gin.Logger())
 	router.GET("/log", RouteLogWriter())
 	router.GET("/", func(c *gin.Context) {
-		c.String(http.StatusOK, string("**hi!**"))
+		c.String(http.StatusOK, string("Welcome"))
 	})
 	router.Run(":" + "80")
 }
@@ -126,7 +79,7 @@ func GetSessionInfo() {
 		Println("Unable to parse URL")
 		return // don't exit, rerun if request is rejected
 	}
-	if reflect.ValueOf(data).IsZero() {
+	if reflect.ValueOf(data).IsZero() || len(data.Center) == 0 {
 		Println("No Data Yet")
 	} else {
 		msg, counter := Filter(data)
@@ -135,11 +88,11 @@ func GetSessionInfo() {
 }
 
 func getTBot() (*tgbotapi.BotAPI, error) {
-	if len(Token) == 0 {
+	if len(builder.Token) == 0 {
 		Println("Provide Token")
 		return nil, errors.New("could not find Bot token")
 	}
-	bot, err := tgbotapi.NewBotAPI(Token)
+	bot, err := tgbotapi.NewBotAPI(builder.Token)
 	//bot.Debug = true
 	if err != nil {
 		Println("Error getting bot")
@@ -167,8 +120,8 @@ func SendMessage(rmsg map[string]map[string]string, counter map[string]int) erro
 		}
 		i++
 	}
-	msg := tgbotapi.NewMessage(SAMIRCID, write.String())
-	msg1 := tgbotapi.NewMessage(GROUPID, write.String())
+	msg := tgbotapi.NewMessage(builder.SAMIRCID, write.String())
+	msg1 := tgbotapi.NewMessage(builder.GROUPID, write.String())
 	msg.ParseMode = "markdown"
 	_, err = bot.Send(msg)
 	_, err = bot.Send(msg1)
@@ -180,7 +133,7 @@ func SendMessage(rmsg map[string]map[string]string, counter map[string]int) erro
 	return nil
 }
 
-func Filter(data Meta) (map[string]map[string]string, map[string]int) {
+func Filter(data builder.Meta) (map[string]map[string]string, map[string]int) {
 	dlen := len(data.Center)
 	slen := len(data.Center[dlen-1].Session)
 	slotlen := len(data.Center[dlen-1].Session[slen-1].Slots)
@@ -209,7 +162,7 @@ func Filter(data Meta) (map[string]map[string]string, map[string]int) {
 	}
 	counter["SessionCount"] = slen
 	counter["SlotCount"] = slotlen
-	FinalMsg = final
+	builder.FinalMsg = final
 	return final, counter
 }
 
@@ -217,60 +170,50 @@ func str(in interface{}) string {
 	return fmt.Sprint(in)
 }
 
-func Fetch(url string) (Meta, error) {
-	var CoMeta Meta
+func Fetch(url string) (builder.Meta, error) {
+	var CoMeta builder.Meta
 	resp, err := http.Get(url)
 	if err != nil || resp.StatusCode != http.StatusOK {
 		Println("Fetch v2: Unable to Fetch URL")
 		log.Println(err, resp.StatusCode)
-		return Meta{}, err
+		return builder.Meta{}, err
 	}
 	defer resp.Body.Close()
 	err = json.NewDecoder(resp.Body).Decode(&CoMeta)
 	if err != nil || resp.StatusCode != http.StatusOK {
 		Println("Fetch v2: Unable to Fetch URL")
 		log.Println(err, resp.StatusCode)
-		return Meta{}, err
+		return builder.Meta{}, err
 	}
 	return CoMeta, nil
 }
 
-func FetchV2(url string) (Meta, error) {
-	CoMeta := &Meta{}
-	//localAddr, err := net.ResolveIPAddr("ip", "103.112.10.253")
-	//
-	//if err != nil {
-	//	panic(err)
-	//}
-	//localTCPAddr := net.TCPAddr{
-	//	IP: localAddr.IP,
-	//}
-	//d := net.Dialer{
-	//	LocalAddr: &localTCPAddr,
-	//	Timeout:   30 * time.Second,
-	//	KeepAlive: 30 * time.Second,
-	//}
-	//tr := &http.Transport{
-	//	Proxy:               http.ProxyFromEnvironment,
-	//	Dial:                d.Dial,
-	//	TLSHandshakeTimeout: 10 * time.Second,
-	//}
+func FetchV2(url string) (builder.Meta, error) {
+	CoMeta := &builder.Meta{}
 	client := &http.Client{}
 	request, err := http.NewRequest("GET", url, nil)
+
 	log.Println(url)
+
 	if err != nil {
-		log.Fatalln(err)
+		Println("Fetch v2: Unable to Fetch URL")
+		return builder.Meta{}, err
 	}
+
 	// faking browser
 	request.Header.Set("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1 Safari/605.1.15")
 	//request.Header.Set("User-Agent", "User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.76 Safari/537.36")
 
 	resp, err := client.Do(request)
 
+	if resp == nil {
+		return builder.Meta{}, err
+	}
+
 	if err != nil || resp.StatusCode != http.StatusOK {
 		Println("Fetch v2: Unable to Fetch URL")
 		log.Println(err, resp.StatusCode)
-		return Meta{}, err
+		return builder.Meta{}, err
 	}
 
 	defer resp.Body.Close()
@@ -279,7 +222,7 @@ func FetchV2(url string) (Meta, error) {
 	//json.Unmarshal(body, &CoMeta)
 	if err != nil {
 		Println("Unable to Load Response")
-		return Meta{}, err
+		return builder.Meta{}, err
 	}
 	return *CoMeta, nil
 }
@@ -297,15 +240,15 @@ func GetDate() string {
 
 func BuildQuery() string {
 	date := GetDate()
-	base, err := url.Parse(URL)
+	base, err := url.Parse(builder.URL)
 	if err != nil {
 		Println("Unable to parse URL")
 		return ""
 	}
-	base.Path += URLPATH
+	base.Path += builder.URLPATH
 	params := url.Values{}
-	params.Add(DATEQUERY, date)
-	params.Add(PINQUERY, PINCODE)
+	params.Add(builder.DATEQUERY, date)
+	params.Add(builder.PINQUERY, builder.PINCODE)
 	base.RawQuery = params.Encode()
 	url := base.String()
 	return url
