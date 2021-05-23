@@ -13,6 +13,7 @@ func flip( toggle *int ) {
 	}
 }
 
+// set these values as a dimensions of pattern
 const INNER = 21
 const OUTER = 11
 
