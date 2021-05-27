@@ -191,6 +191,7 @@ func Fetch(url string) (builder.Meta, error) {
 func FetchV2(url string) (builder.Meta, error) {
 	CoMeta := &builder.Meta{}
 	client := &http.Client{}
+
 	request, err := http.NewRequest("GET", url, nil)
 
 	log.Println(url)
@@ -202,8 +203,6 @@ func FetchV2(url string) (builder.Meta, error) {
 
 	// faking browser
 	request.Header.Set("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1 Safari/605.1.15")
-	//request.Header.Set("User-Agent", "User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.76 Safari/537.36")
-
 	resp, err := client.Do(request)
 
 	if resp == nil {
@@ -220,6 +219,7 @@ func FetchV2(url string) (builder.Meta, error) {
 	err = json.NewDecoder(resp.Body).Decode(&CoMeta)
 	//body, err := ioutil.ReadAll(resp.Body)
 	//json.Unmarshal(body, &CoMeta)
+
 	if err != nil {
 		Println("Unable to Load Response")
 		return builder.Meta{}, err
