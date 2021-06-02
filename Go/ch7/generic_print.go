@@ -27,7 +27,7 @@ func Sprintf(format string, args ...interface{}) string {
 
 func eSprintf(format string, args ...interface{}) string {
 	var buffer Storage
-	fmt.Fprintf(&buffer, format, args...) //
+	fmt.Fprintf(&buffer, format, args...) // buffer should have Write() method to be qualified for input as a io.Writer
 	return string(buffer.buf)
 }
 
