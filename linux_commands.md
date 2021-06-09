@@ -10,7 +10,16 @@ version_greater_equal()
 version_greater_equal "${yq_version}" 2.2.1 || { echo "found yq ${yq_version} need 2.2.1"; exit -1; }
 ```
 
+```bash
+#how to find and replace in vim editor
+:[range]s/{pattern}/{replace}/[flags] [count]
+e.g
+:%s/pattern/replace/g
 
+# :s = substitute
+# %  = range delimiter. If you want to search and replace the pattern in the entire file.
+# g  = replace all the occurances in current line. If not specified, only first ocurrance will be replaced  
+```
 
 ```bash
 $ echo "Samir Nitin Kape" | cut -d" " -f3
