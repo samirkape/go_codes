@@ -1,7 +1,10 @@
 // all the required data structures are maintained here
 package types
 
-import "time"
+import (
+	"os"
+	"time"
+)
 
 const (
 	SAMIRCID    = 1346530914
@@ -60,7 +63,6 @@ type Needed struct {
 	Slots             []string
 }
 
-//var Token = os.Getenv("TOKEN")
-var Token = "1890317276:AAE-gL26gJbOxDm_3Ndhjv-kWiYDN9yni0o"
+var Token = os.Getenv("TOKEN")
 var FinalMsg map[string]map[string]string
 var StopFlag = false
