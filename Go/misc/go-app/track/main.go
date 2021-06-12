@@ -1,3 +1,4 @@
+// main package for getting vaccine slot availability information from cowin.org and if more than zero slots are available to book, then sending message to appropriate user by a means of telegram bot
 package main
 
 import (
@@ -16,7 +17,6 @@ import (
 
 	mylog "example.com/logger"
 	types "example.com/types"
-
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api"
 )
 
@@ -34,45 +34,44 @@ func init() {
 
 func main() {
 	go mylog.RouteLog() // :8081/log will print debug logs
-	go StopACK(Bot)     // this will keep checking for ack in background.
+	go StopACK(Bot)     // this will keep checking for stop ack in background.
 	Track()
 }
 
 // driver function
 func Track() {
-	t := float64((time.Minute * 5) / 100)
 	for {
 		err := GetSlotInfo()
 		if err != nil {
 			fmt.Println(err)
 		}
-		time.Sleep(time.Duration(t)) // follow 100 requests per hour limit by cowin.gov
+		time.Sleep(time.Duration(types.WaitTime)) // follow 100 requests per 5 minutes limit by cowin.gov
 	}
 }
 
-// 1. build and parse url
+// 1. construct and parse url
 // 2. fetch by http.Get + json decode
 // 3. sending msg to bot
 func GetSlotInfo() error {
-	gsi_err := errors.New("GetSessionInfo: failed to get vaccine info")
+	gsi_err := "GetSessionInfo: failed to get vaccine info %v"
 	url, err := BuildQuery() // parse url
 	if err != nil {
 		mylog.Println(err)
-		return gsi_err
+		return fmt.Errorf(gsi_err, err)
 	}
 	data, err := FetchV2(url) // fetch url + decode json
 	if err != nil {
 		mylog.Println(err)
-		return gsi_err
+		return fmt.Errorf(gsi_err, err)
 	}
 	if reflect.ValueOf(data).IsZero() || len(data.Center) == 0 {
-		return gsi_err
+		return errors.New(gsi_err)
 	} else {
 		msg, counter := Filter(data)        // discard unnecessary data
 		err := MessageHandler(msg, counter) // send msg if the vaccines are available to book
 		if err != nil {
 			mylog.Println(err)
-			return gsi_err
+			return fmt.Errorf(gsi_err, err)
 		}
 	}
 	return nil
@@ -86,20 +85,20 @@ func getTBot() (*tgbotapi.BotAPI, error) {
 	bot, err := tgbotapi.NewBotAPI(types.Token)
 	//bot.Debug = true
 	if err != nil {
-		return nil, fmt.Errorf("getTBot: error getting bot: %v", err)
+		return nil, fmt.Errorf("getTBot: error initializing bot: %v", err)
 	}
 	return bot, err
 }
 
 //send vaccine information to telegram bot
 func MessageHandler(rmsg map[string]map[string]string, counter map[string]int) error {
-	if counter["Available"] == 0 {
+	if counter[types.Available] == 0 {
 		return nil
 	}
 	var write strings.Builder
 	i := 1
 	for key, val := range rmsg {
-		if key == "Session"+mylog.Str(i) {
+		if key == types.Session+mylog.Str(i) {
 			for key1, val1 := range val {
 				write.WriteString(fmt.Sprintf("%s\t%s\n", key1, val1))
 			}
@@ -112,10 +111,10 @@ func MessageHandler(rmsg map[string]map[string]string, counter map[string]int) e
 	return nil
 }
 
-// sends message to registed id
+// sends message to registered id
 func SendMessage(bot *tgbotapi.BotAPI, Info string) error {
 	if types.StopFlag {
-		fmt.Println("Warning! Bot has recieved an ack to stop")
+		fmt.Println("warning! bot has recieved an ack to stop")
 		os.Exit(-1)
 		return nil
 	}
@@ -125,7 +124,7 @@ func SendMessage(bot *tgbotapi.BotAPI, Info string) error {
 	_, err := bot.Send(msg)
 	//_, err = bot.Send(msg1)
 	if err != nil {
-		return fmt.Errorf("SendMessage: message sending failed: %v", err)
+		return fmt.Errorf("sendmessage: message sending failed: %v", err)
 	}
 	return nil
 }
@@ -249,7 +248,7 @@ func BuildQuery() (string, error) {
 	date := GetDate()
 	base, err := url.Parse(types.URL)
 	if err != nil {
-		return "", fmt.Errorf("BuildQuery: unable to parse url: %v", err)
+		return "", fmt.Errorf("buildquery: unable to parse url: %v", err)
 	}
 	base.Path += types.URLPATH
 	params := url.Values{}

@@ -1,3 +1,4 @@
+// package logger is responsible for providing functions for writing data on console and http server
 package logger
 
 import (
@@ -11,8 +12,6 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-const Address = "8081"
-
 func Println(str interface{}) {
 	fmt.Println(str)
 }
@@ -24,7 +23,7 @@ func Str(in interface{}) string {
 func ConsoleLog(rmsg map[string]map[string]string) {
 	i := 0 + 1
 	for key, val := range rmsg {
-		if key == "Session"+Str(i) {
+		if key == types.Session+Str(i) {
 			for key1, val1 := range val {
 				Println(key1 + "\t" + val1)
 			}
@@ -36,9 +35,9 @@ func ConsoleLog(rmsg map[string]map[string]string) {
 func RouteLogWriter() gin.HandlerFunc {
 	write := strings.Builder{}
 	return func(c *gin.Context) {
-		i := 0 + 1
+		i := 1
 		for key, val := range types.FinalMsg {
-			if key == "Session"+Str(i) {
+			if key == types.Session+Str(i) {
 				for key1, val1 := range val {
 					write.WriteString(fmt.Sprintf("%s\t%s\n", key1, val1))
 				}
@@ -57,5 +56,5 @@ func RouteLog() {
 	router.GET("/", func(c *gin.Context) {
 		c.String(http.StatusOK, string("Welcome"))
 	})
-	router.Run(":" + Address)
+	router.Run(":" + types.HostAddress)
 }

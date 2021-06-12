@@ -1,13 +1,30 @@
+// all the required data structures are maintained here
 package types
 
+import "time"
+
 const (
-	SAMIRCID         = 1346530914
-	GROUPID          = -557832891
-	URL       string = "https://cdn-api.co-vin.in/"
-	URLPATH   string = "api/v2/appointment/sessions/public/calendarByPin"
-	PINQUERY  string = "pincode"
-	PINCODE   string = "423601"
-	DATEQUERY string = "date"
+	SAMIRCID    = 1346530914
+	GROUPID     = -557832891
+	URL         = "https://cdn-api.co-vin.in/"
+	URLPATH     = "api/v2/appointment/sessions/public/calendarByPin"
+	PINCODE     = "423601"
+	PINQUERY    = "pincode"
+	DATEQUERY   = "date"
+	HostAddress = "8081"
+	WaitTime    = float64((time.Minute * 5) / 100)
+)
+
+const (
+	AvailableCapacity = "Available Capacity: "
+	MinAge            = "Minimum Age: "
+	Vaccine           = "Vaccine: "
+	Name              = "Name: "
+	Available         = "Available"
+	Session           = "Session"
+	Slot              = "Slot"
+	SessionCount      = "SessionCount"
+	SlotCount         = "SlotCount"
 )
 
 type Meta struct {
@@ -42,18 +59,6 @@ type Needed struct {
 	Vaccine           string
 	Slots             []string
 }
-
-const (
-	AvailableCapacity = "Available Capacity: "
-	MinAge            = "Minimum Age: "
-	Vaccine           = "Vaccine: "
-	Name              = "Name: "
-	Available         = "Available"
-	Session           = "Session"
-	Slot              = "Slot"
-	SessionCount      = "SessionCount"
-	SlotCount         = "SlotCount"
-)
 
 //var Token = os.Getenv("TOKEN")
 var Token = "1890317276:AAE-gL26gJbOxDm_3Ndhjv-kWiYDN9yni0o"
