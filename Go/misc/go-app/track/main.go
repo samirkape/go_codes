@@ -155,28 +155,28 @@ func Filter(data types.Meta) (map[string]map[string]string, map[string]int) {
 	slotlen := len(data.Center[dlen-1].Session[slen-1].Slots)
 	final := make(map[string]map[string]string)
 	counter := make(map[string]int)
-	counter["Available"] = 0
+	counter[types.Available] = 0
 	for i := 0; i < dlen; i++ {
-		session := "Session" + mylog.Str(i+1)
+		session := types.Session + mylog.Str(i+1)
 		ret := make(map[string]string)
 		for j := 0; j < slen; j++ {
-			ret["Available Capacity: "] = mylog.Str(data.Center[i].Session[j].AvailableCapacity)
-			ret["Minimum Age: "] = mylog.Str(data.Center[i].Session[j].MinAge)
-			ret["Vaccine: "] = data.Center[i].Session[j].Vaccine
-			ret["Name: "] = data.Center[i].Name
+			ret[types.AvailableCapacity] = mylog.Str(data.Center[i].Session[j].AvailableCapacity)
+			ret[types.MinAge] = mylog.Str(data.Center[i].Session[j].MinAge)
+			ret[types.Vaccine] = data.Center[i].Session[j].Vaccine
+			ret[types.Name] = data.Center[i].Name
 			if data.Center[i].Session[j].AvailableCapacity > 0 {
-				counter["Available"] = 1
+				counter[types.Available] = 1
 			}
 			for k := 0; k < slotlen; k++ {
-				_slot := "Slot" + mylog.Str(k+1)
+				_slot := types.Slot + mylog.Str(k+1)
 				ret[_slot] = data.Center[i].Session[j].Slots[k]
 			}
 			j++
 		}
 		final[session] = ret
 	}
-	counter["SessionCount"] = slen
-	counter["SlotCount"] = slotlen
+	counter[types.SessionCount] = slen
+	counter[types.SlotCount] = slotlen
 	types.FinalMsg = final
 	return final, counter
 }

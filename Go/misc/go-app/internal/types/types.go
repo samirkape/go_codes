@@ -43,6 +43,18 @@ type Needed struct {
 	Slots             []string
 }
 
+const (
+	AvailableCapacity = "Available Capacity: "
+	MinAge            = "Minimum Age: "
+	Vaccine           = "Vaccine: "
+	Name              = "Name: "
+	Available         = "Available"
+	Session           = "Session"
+	Slot              = "Slot"
+	SessionCount      = "SessionCount"
+	SlotCount         = "SlotCount"
+)
+
 //var Token = os.Getenv("TOKEN")
 var Token = "1890317276:AAE-gL26gJbOxDm_3Ndhjv-kWiYDN9yni0o"
 var FinalMsg map[string]map[string]string
