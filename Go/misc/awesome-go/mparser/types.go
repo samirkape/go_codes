@@ -3,6 +3,8 @@ package mparser
 
 import (
 	"os"
+
+	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 const FILE = "./awesome.md"
@@ -33,7 +35,8 @@ type LineMeta struct {
 }
 
 type SplitLink struct {
-	Name string `bson:"name" json:"name"`
-	URL  string `bson:"url" json:"url"`
-	Info string `bson:"subtitle" json:"subtitle"`
+	Name string             `bson:"name" json:"name"`
+	URL  string             `bson:"url" json:"url"`
+	Info string             `bson:"info" json:"info"`
+	ID   primitive.ObjectID `bson:"_id" json:"id,omitempty"`
 }
