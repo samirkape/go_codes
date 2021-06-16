@@ -1,0 +1,9 @@
+1. parse and filter
+2. store into a database with following metadata for customization
+    1. category
+    2. name
+    3. url
+    4. short info
+3. expose api in json
+4. get readme
+4. front-end will be a readme.md of a package
