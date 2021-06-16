@@ -10,12 +10,13 @@ import (
 
 var Bot *tgbotapi.BotAPI
 
-const Token = "1888237043:AAHHK6C89tpDpFPYpwwP3Y-rMkEjbVBn0hY"
+var Token string
+
 const USERID = 1346530914
 
 // bot constructor
 func init() {
-	// Token = os.Getenv("TOKEN")
+	Token = os.Getenv("TOKEN")
 	bot, err := getTBot()
 	Bot = bot
 	if err != nil {

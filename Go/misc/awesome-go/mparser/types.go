@@ -13,7 +13,6 @@ var DBURI string
 
 func init() {
 	DBURI = os.Getenv("ATLAS_URI")
-	DBURI = "mongodb+srv://samirkape:Vpceh31en@cluster0.csfcu.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
 }
 
 type Package struct {
