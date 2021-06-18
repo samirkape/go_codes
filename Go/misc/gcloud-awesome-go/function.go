@@ -10,6 +10,7 @@ import (
 	"strconv"
 	"strings"
 
+	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
@@ -52,8 +53,11 @@ func ExecuteCommand(msgText string, chatID int) {
 		SendMessage("Hold on", chatID)
 		SendMessage(ListToMsg(colls), chatID)
 		SendMessage("Done!", chatID)
+		RequestCounter++
 	case CMDListPackages:
 		SendMessage("Reply with catergory number", chatID)
+	case CMDGetStats:
+		SendMessage(fmt.Sprintf("Total requests: %d", RequestCounter), chatID)
 	// TODO
 	// case "/search":
 	// 	SendMessage("Reply with search term", chatID)
@@ -81,10 +85,11 @@ func CheckReply(msgText string, chatID int, client *mongo.Client, DbName string,
 			index, err := strconv.Atoi(e)
 			if err != nil {
 				log.Println("Unable to convert msg to integer index")
+				SendMessage("Invalid response. Please try again", chatID)
 				return
 			}
-			if index > len(colls) {
-				ErrMsg := fmt.Sprintf("Invalid response. Number should not exceed %d", len(colls)-1)
+			if index > len(colls) || index < 0 {
+				ErrMsg := fmt.Sprintf("Invalid response. Accepted range is {0 - %d} ", len(colls)-1)
 				SendMessage(ErrMsg, chatID)
 				return
 			}
@@ -94,6 +99,8 @@ func CheckReply(msgText string, chatID int, client *mongo.Client, DbName string,
 			}
 		}
 	}
+	RequestCounter++
+	DBUpdateCount(client, UserDbName, UserDbColName, bson.M{"count": RequestCounter})
 }
 
 func PackageToMsg(input SplitLink) string {

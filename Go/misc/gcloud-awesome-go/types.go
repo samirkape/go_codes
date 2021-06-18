@@ -17,6 +17,9 @@ var DBURI string
 // mongodb daatabse name
 const DbName = "packagedb"
 const UserDbName = "usersdb"
+const UserDbColName = "requestctr"
+
+var RequestCounter int
 
 // local markdown file for parsing
 const FILE = "./awesome.md"
@@ -31,6 +34,7 @@ const (
 	CMDStart          = "/start"
 	CMDListCategories = "/listcategories"
 	CMDListPackages   = "/selectentry"
+	CMDGetStats       = "/getstats"
 )
 
 // Below structs are used for parsing the incoming POST request from telegram bot.

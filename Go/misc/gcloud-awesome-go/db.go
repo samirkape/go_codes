@@ -150,11 +150,11 @@ func DbWritePkgs(final []Package, client *mongo.Client, DbName string) {
 	}
 }
 
-func WriteUser(client *mongo.Client, DbName string, CollectionName string, data interface{}) *mongo.Collection {
+func DBUpdateCount(client *mongo.Client, DbName string, CollectionName string, data interface{}) *mongo.Collection {
 	//Create a handle to the respective collection in the database.
 	collection := client.Database(DbName).Collection(CollectionName)
 	//Perform InsertMany operation & validate against the error.
-	_, err := collection.InsertOne(context.TODO(), data)
+	_, err := collection.ReplaceOne(context.TODO(), bson.D{}, data)
 	if err != nil {
 		log.Fatal(err)
 	}
