@@ -2,39 +2,39 @@
 package mybot
 
 import (
-	"os"
-
+	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api"
 	"go.mongodb.org/mongo-driver/bson/primitive"
+	"go.mongodb.org/mongo-driver/mongo"
 )
 
-// Package[i] is a master DS for a category.
-// it contains short description, title and all subpackages of a category.
-var pkgs []Package
+var (
+	// Config holds database related configurations such as
+	// mongodb URI to establish connection with DB.
+	DBConfig *dbconfig
 
-// mongodb URI to establish connection with database.
-var DBURI string
+	// DBclient requires one time initialization
+	DBClient *mongo.Client
 
-// mongodb daatabse name
-const DbName = "packagedb"
-const UserDbName = "usersdb"
-const UserDbColName = "requestctr"
+	// Bot config includes fetching token from env.
+	BotConfig *botConfig
 
-var RequestCounter int
+	// BotInstance requires one time initialization.
+	BotInstance *tgbotapi.BotAPI
 
-// local markdown file for parsing
-const FILE = "./awesome.md"
+	// Command are communication interface of bot and the app
+	BotCommand *botCommand
 
-// init mongo db instance
-func init() {
-	pkgs = make([]Package, 0)
-	DBURI = os.Getenv("ATLAS_URI")
-}
+	// RequestCounter serve as a counter to count the user queries
+	RequestCounter int
+)
 
+type Packages []Package
+
+// If any category contains packages  more than `MaxAcceptable`
+// Merge them into a group of `MergeMessages` and send as a single message
 const (
-	CMDStart          = "/start"
-	CMDListCategories = "/listcategories"
-	CMDListPackages   = "/selectentry"
-	CMDGetStats       = "/getstats"
+	MaxAcceptable = 10
+	MergeMessages = 10
 )
 
 // Below structs are used for parsing the incoming POST request from telegram bot.
@@ -85,7 +85,7 @@ type Entities struct {
 
 // below data structures are related to parsing of markdown file
 // root structure
-type Package struct {
+type Category struct {
 	Details Meta
 }
 
@@ -100,14 +100,19 @@ type Meta struct {
 // this structure holds a information for multiple single lines.
 // i.e it stores multiple raw lines related with package that belong to certain category.
 type LineMeta struct {
-	LinkDetails []SplitLink
-	FullLink    []string
+	Packages []Package
+	FullLink []string
 }
 
 // this is final structure of parser which will also be use for inserting package into database.
-type SplitLink struct {
+type Package struct {
 	Name string             `bson:"name" json:"name"`
 	URL  string             `bson:"url" json:"url"`
 	Info string             `bson:"info" json:"info"`
 	ID   primitive.ObjectID `bson:"_id" json:"id,omitempty"`
+}
+
+// DB related structs
+type UserRequestCounter struct {
+	Count int `bson:"count" json:"count"`
 }

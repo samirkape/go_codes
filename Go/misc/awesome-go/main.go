@@ -2,9 +2,9 @@ package main
 
 import (
 	"context"
+	"fmt"
 	mp "mparser"
-	bot "mybot"
-	"os"
+	"sort"
 )
 
 // raw function calls for fetching and
@@ -12,10 +12,10 @@ import (
 func main() {
 
 	// Parse markdown file
-	// file := mp.FileHandle(mp.FILE)
-	// defer file.Close()
-	// final := mp.GetSlice(file)
-	// mp.Split(final)
+	file := mp.FileHandle(mp.FILE)
+	defer file.Close()
+	final := mp.GetSlice(file)
+	mp.Split(final)
 
 	// write parsed package meta to database
 	// mp.DbWritePkgs(final, client, mp.DbName)
@@ -25,11 +25,6 @@ func main() {
 	client := mp.GetDbClient()
 	defer client.Disconnect(context.Background())
 	colls := mp.ListCollections(client, mp.DbName)
-	Package, err := mp.FindDoc(client, mp.DbName, colls[0])
-	if err != nil {
-		os.Exit(-1)
-	}
-
-	// send sample message to telegram bot
-	bot.SendMessage(Package.URL)
+	sort.Strings(colls)
+	fmt.Println(colls)
 }

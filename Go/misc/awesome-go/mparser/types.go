@@ -2,7 +2,10 @@
 package mparser
 
 import (
+	"log"
 	"os"
+
+	"github.com/joho/godotenv"
 
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
@@ -12,6 +15,10 @@ const FILE = "./awesome.md"
 var DBURI string
 
 func init() {
+	// load environment variables from .env
+	if err := godotenv.Load(); err != nil {
+		log.Print(".env file found")
+	}
 	DBURI = os.Getenv("ATLAS_URI")
 }
 

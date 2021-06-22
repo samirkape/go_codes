@@ -1,123 +1,54 @@
 package mybot
 
 import (
-	"context"
 	"encoding/json"
-	"fmt"
+	"errors"
 	"log"
 	"net/http"
-	"regexp"
-	"strconv"
-	"strings"
-
-	"go.mongodb.org/mongo-driver/bson"
-	"go.mongodb.org/mongo-driver/mongo"
 )
 
 // HandleTelegramWebHook parses a POST request from telegram and responds with appropriate actions.
 func HandleTelegramWebHook(w http.ResponseWriter, r *http.Request) {
-	message := ReceiveMessage{}
+	// Parse POST request
+	// chatID: is a unique user identifier.
+	// msgText: is a message/command user has sent to the bot.
+	chatID, msgText, err := requestHandler(w, r)
+	if err != nil {
+		log.Printf("requesthandler: unable to proceed %v", err)
+		return
+	}
+
+	// read package list from the databse
+	allPackages := ListCategories()
+
+	// handle command given in the msgText
+	// e.g /listpackages, /getStats
+	executeCommand(msgText, chatID, allPackages)
+}
+
+func requestHandler(w http.ResponseWriter, r *http.Request) (int, string, error) {
+	var message ReceiveMessage
 	chatID := 0
 	msgText := ""
 
 	// Parse incoming request
-	if r.Method == "POST" {
+	if r.Method == http.MethodPost {
 		err := json.NewDecoder(r.Body).Decode(&message)
 		if err != nil {
 			log.Println(err)
-			return
+			return -1, "", err
 		}
 		r.Body.Close()
 	}
 
+	// validate chat id
 	if message.Message.Chat.ID > 0 {
 		log.Println(message.Message.Chat.ID, message.Message.Text)
 		chatID = message.Message.Chat.ID
 		msgText = message.Message.Text
+	} else {
+		return 0, "", errors.New("invalid user chat id")
 	}
 
-	// check if the received response is command
-	ExecuteCommand(msgText, chatID)
-}
-
-func ExecuteCommand(msgText string, chatID int) {
-
-	// Connect to database and fetch a document from collection list
-	client := GetDbClient()
-	defer client.Disconnect(context.Background())
-	colls := ListCollections(client, DbName)
-	switch msgText {
-	case CMDStart:
-		SendMessage("Hello, press command button to start", chatID)
-	case CMDListCategories:
-		SendMessage("Hold on", chatID)
-		SendMessage(ListToMsg(colls), chatID)
-		SendMessage("Done!", chatID)
-		RequestCounter++
-	case CMDListPackages:
-		SendMessage("Reply with catergory number", chatID)
-	case CMDGetStats:
-		SendMessage(fmt.Sprintf("Total requests: %d", RequestCounter), chatID)
-	// TODO
-	// case "/search":
-	// 	SendMessage("Reply with search term", chatID)
-	default:
-		CheckReply(msgText, chatID, client, DbName, colls)
-	}
-}
-
-func CheckReply(msgText string, chatID int, client *mongo.Client, DbName string, colls []string) {
-	// check if it is unhandled scommand
-	if strings.HasPrefix(msgText, "/") {
-		SendMessage("Invalid command, try numeric input", chatID)
-		return
-	}
-	// validate package number reply for any alphabet
-	pattern := regexp.MustCompile(`.*[a-zA-Z]+.*`)
-	msgCharIdx := pattern.FindStringIndex(msgText)
-	if msgCharIdx != nil {
-		SendMessage("Invalid response. Non numeric input", chatID)
-		return
-	}
-	categoryIdx := strings.Split(msgText, ",")
-	if len(categoryIdx) > 0 {
-		for _, e := range categoryIdx {
-			index, err := strconv.Atoi(e)
-			if err != nil {
-				log.Println("Unable to convert msg to integer index")
-				SendMessage("Invalid response. Please try again", chatID)
-				return
-			}
-			if index > len(colls) || index < 0 {
-				ErrMsg := fmt.Sprintf("Invalid response. Accepted range is {0 - %d} ", len(colls)-1)
-				SendMessage(ErrMsg, chatID)
-				return
-			}
-			pkgs, err := FindDoc(client, DbName, colls[index], "")
-			for _, pkg := range pkgs {
-				SendMessage(PackageToMsg(pkg), chatID)
-			}
-		}
-	}
-	RequestCounter++
-	DBUpdateCount(client, UserDbName, UserDbColName, bson.M{"count": RequestCounter})
-}
-
-func PackageToMsg(input SplitLink) string {
-	msgString := strings.Builder{}
-	msgString.WriteString(fmt.Sprintf("*Name*: %s\n\n", input.Name))
-	msgString.WriteString(fmt.Sprintf("*URL*: %s \n\n", input.URL))
-	if input.Info != "" {
-		msgString.WriteString(fmt.Sprintf("*Description*: _%s_ \n\n", input.Info))
-	}
-	return msgString.String()
-}
-
-// Convert slice of strings to single string
-func ListToMsg(list []string) string {
-	msg := strings.Builder{}
-	for i, pkg := range list {
-		msg.WriteString(fmt.Sprint(i) + ". " + pkg[3:] + string("\n"))
-	}
-	return msg.String()
+	return chatID, msgText, nil
 }

@@ -13,7 +13,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-const DbName = "mparserdb"
+const DbName = "packagedb"
 
 // WriteData uses mongodb's  InsertMany()  function to insert documents to a
 // dbName database and CollectionName collection
