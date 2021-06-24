@@ -11,4 +11,5 @@ replace example.com/tracker => ./internal/tracker
 require (
 	example.com/logger v0.0.0-00010101000000-000000000000
 	example.com/tracker v0.0.0-00010101000000-000000000000
+	github.com/caarlos0/env/v6 v6.6.2 // indirect
 )

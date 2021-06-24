@@ -21,7 +21,6 @@ func init() {
 	Bot = bot
 	if err != nil {
 		fmt.Println("bot initialization failed")
-		os.Exit(-1)
 	}
 }
 

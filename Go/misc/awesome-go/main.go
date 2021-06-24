@@ -7,10 +7,13 @@ import (
 	"sort"
 )
 
+func TestLinks() {
+
+}
+
 // raw function calls for fetching and
 // sending a package URL to a telegram bot
 func main() {
-
 	// Parse markdown file
 	file := mp.FileHandle(mp.FILE)
 	defer file.Close()

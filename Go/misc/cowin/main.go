@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	go mylog.RouteLog()             // :8081/log will print debug logs
-	go tracker.StopACK(tracker.Bot) // this will keep checking for stop ack in background.
+	go mylog.RouteLog()         // :8081/log will print debug logs
+	go tracker.ACK(tracker.Bot) // this will keep checking for stop ack in background.
 	tracker.Track()
 }

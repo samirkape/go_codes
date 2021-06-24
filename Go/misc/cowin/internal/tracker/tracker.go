@@ -59,7 +59,7 @@ func GetSlotInfo() error {
 		return fmt.Errorf(gsi_err, err)
 	}
 	if reflect.ValueOf(data).IsZero() || len(data.Center) == 0 {
-		return errors.New(gsi_err)
+		return errors.New("No vaccines available")
 	} else {
 		msg, counter := Filter(data)        // discard unnecessary data
 		err := MessageHandler(msg, counter) // send msg if the vaccines are available to book
@@ -73,10 +73,11 @@ func GetSlotInfo() error {
 
 // initialize and validate bot
 func getTBot() (*tgbotapi.BotAPI, error) {
-	if len(types.Token) == 0 {
+	BotToken := "1890317276:AAEP87K7Cvk-RvUySwkrRAlYfRtag-9PASs"
+	if len(BotToken) == 0 {
 		return nil, errors.New("getTBot: could not find bot token")
 	}
-	bot, err := tgbotapi.NewBotAPI(types.Token)
+	bot, err := tgbotapi.NewBotAPI(BotToken)
 	//bot.Debug = true
 	if err != nil {
 		return nil, fmt.Errorf("getTBot: error initializing bot: %v", err)
@@ -96,7 +97,7 @@ func MessageHandler(rmsg map[string]map[string]string, counter map[string]int) e
 			for key1, val1 := range val {
 				write.WriteString(fmt.Sprintf("%s\t%s\n", key1, val1))
 			}
-			write.WriteString("--- ")
+			write.WriteString("-----------\n")
 		}
 		i++
 	}
@@ -124,7 +125,7 @@ func SendMessage(bot *tgbotapi.BotAPI, Info string) error {
 }
 
 // checks for any msg from bot
-func StopACK(bot *tgbotapi.BotAPI) {
+func ACK(bot *tgbotapi.BotAPI) {
 	if types.StopFlag {
 		return
 	}
@@ -135,8 +136,13 @@ func StopACK(bot *tgbotapi.BotAPI) {
 		types.StopFlag = false
 	}
 	for update := range updates {
-		if update.Message != nil {
+		msg := update.Message.Text
+		if msg == "skip" {
 			types.StopFlag = true
+		} else if msg == "stop" {
+			types.StopFlag = true
+		} else if strings.HasPrefix(msg, "Date=") {
+			types.Date, err = strconv.Atoi(msg[5:])
 		}
 	}
 }
@@ -153,17 +159,21 @@ func Filter(data types.Meta) (map[string]map[string]string, map[string]int) {
 		session := types.Session + mylog.Str(i+1)
 		ret := make(map[string]string)
 		for j := 0; j < slen; j++ {
+
 			ret[types.AvailableCapacity] = mylog.Str(data.Center[i].Session[j].AvailableCapacity)
 			ret[types.MinAge] = mylog.Str(data.Center[i].Session[j].MinAge)
 			ret[types.Vaccine] = data.Center[i].Session[j].Vaccine
 			ret[types.Name] = data.Center[i].Name
-			if data.Center[i].Session[j].AvailableCapacity > 0 {
+
+			if data.Center[i].Session[j].AvailableCapacity > 0 && data.Center[i].Session[j].MinAge == 18 {
 				counter[types.Available] = 1
 			}
+
 			for k := 0; k < slotlen; k++ {
 				_slot := types.Slot + mylog.Str(k+1)
 				ret[_slot] = data.Center[i].Session[j].Slots[k]
 			}
+
 			j++
 		}
 		final[session] = ret
@@ -234,6 +244,7 @@ func dummyJson() *bytes.Reader {
 // date needed for query
 func GetDate() string {
 	year, month, day := time.Now().Date()
+	day = types.Date
 	return fmt.Sprintf(strconv.Itoa(day) + "-" + strconv.Itoa(int(month)) + "-" + strconv.Itoa(year))
 }
 

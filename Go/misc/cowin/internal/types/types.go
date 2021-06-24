@@ -2,8 +2,11 @@
 package types
 
 import (
+	"fmt"
 	"os"
 	"time"
+
+	env "github.com/caarlos0/env/v6"
 )
 
 const (
@@ -63,6 +66,22 @@ type Needed struct {
 	Slots             []string
 }
 
-var Token = os.Getenv("TOKEN")
+type BotConfig struct {
+	Token string `env:"TOKEN"`
+}
+
+func init() {
+	cfg := BotConfig{}
+	if err := env.Parse(&cfg); err != nil {
+		fmt.Printf("%+v\n", err)
+	}
+}
+
+var BotToken = os.Getenv("TOKEN")
 var FinalMsg map[string]map[string]string
-var StopFlag = false
+
+var (
+	StopFlag = false
+	SkipFlag = false
+	Date     = -1
+)

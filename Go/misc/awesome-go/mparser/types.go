@@ -6,8 +6,6 @@ import (
 	"os"
 
 	"github.com/joho/godotenv"
-
-	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 const FILE = "./awesome.md"
@@ -22,27 +20,35 @@ func init() {
 	DBURI = os.Getenv("ATLAS_URI")
 }
 
+type config struct {
+	PackageDBName string
+	UserDBName    string
+	UserDBColName string
+	MongoURL      string
+}
+
+var Config *config
+
+func init() {
+	Config = &config{
+		PackageDBName: "packagedb",
+		UserDBName:    "usersdb",
+		UserDBColName: "requestctr",
+		MongoURL:      os.Getenv("ATLAS_URI"),
+	}
+}
+
+type Category struct {
+	Title          string
+	PackageDetails []Package
+	RawLines       []string // * [How To Code in Go eBook](https://www.digitalocean.com/community/books/how-to-code-in-go-ebook) - A 600 page introduction to Go aimed at first time developers.
+	SubTitle       string
+	Count          int
+}
+
 type Package struct {
-	Details Meta
-}
-
-var pkgs = make([]Package, 0)
-
-type Meta struct {
-	Title    string
-	Line     LineMeta
-	SubTitle string
-	Count    int
-}
-
-type LineMeta struct {
-	LinkDetails []SplitLink
-	FullLink    []string
-}
-
-type SplitLink struct {
-	Name string             `bson:"name" json:"name"`
-	URL  string             `bson:"url" json:"url"`
-	Info string             `bson:"info" json:"info"`
-	ID   primitive.ObjectID `bson:"_id" json:"id,omitempty"`
+	Name string `bson:"name" json:"name"`
+	URL  string `bson:"url" json:"url"`
+	Info string `bson:"info" json:"info"`
+	// ID   primitive.ObjectID `bson:"_id" json:"id,omitempty"`
 }
