@@ -7,7 +7,19 @@ import (
 	"time"
 
 	env "github.com/caarlos0/env/v6"
+	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api"
 )
+
+var Bot *tgbotapi.BotAPI
+
+// bot constructor
+func init() {
+	bot, err := getTBot()
+	Bot = bot
+	if err != nil {
+		fmt.Println("bot initialization failed")
+	}
+}
 
 const (
 	SAMIRCID    = 1346530914

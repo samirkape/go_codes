@@ -18,18 +18,6 @@ import (
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api"
 )
 
-var Bot *tgbotapi.BotAPI
-
-// bot constructor
-func init() {
-	bot, err := getTBot()
-	Bot = bot
-	if err != nil {
-		fmt.Println("bot initialization failed")
-		os.Exit(-1)
-	}
-}
-
 // driver function
 func Track(w *http.ResponseWriter, r *http.Request) {
 	for {
@@ -84,7 +72,6 @@ func getTBot() (*tgbotapi.BotAPI, error) {
 func SendMessage(Info string) error {
 	if StopFlag {
 		fmt.Println("warning! bot has recieved an ack to stop")
-		os.Exit(-1)
 		return nil
 	}
 	msg := tgbotapi.NewMessage(SAMIRCID, Info)
