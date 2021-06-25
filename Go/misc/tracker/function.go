@@ -55,7 +55,7 @@ func GetSlotInfo() error {
 		return fmt.Errorf(gsi_err, err)
 	}
 	if reflect.ValueOf(data).IsZero() {
-		return errors.New(fmt.Sprintf("No vaccines available for %s", GetDate()))
+		return fmt.Errorf("no vaccines available for %s", GetDate())
 	} else {
 		FilterDist(data) // discard unnecessary data
 		// err := MessageHandler(msg, ) // send msg if the vaccines are available to book
@@ -68,7 +68,7 @@ func GetSlotInfo() error {
 
 // initialize and validate bot
 func getTBot() (*tgbotapi.BotAPI, error) {
-	BotToken := "1890317276:AAEP87K7Cvk-RvUySwkrRAlYfRtag-9PASs"
+	BotToken := os.Getenv("TOKEN")
 	if len(BotToken) == 0 {
 		return nil, errors.New("getTBot: could not find bot token")
 	}
@@ -92,7 +92,7 @@ func SendMessage(Info string) error {
 	//msg1 := tgbotapi.NewMessage(GROUPID, Info)
 	msg.ParseMode = "markdown"
 	_, err := Bot.Send(msg)
-	_, err = Bot.Send(url)
+	Bot.Send(url)
 	//_, err = bot.Send(msg1)
 	if err != nil {
 		return fmt.Errorf("sendmessage: message sending failed: %v", err)
@@ -101,28 +101,28 @@ func SendMessage(Info string) error {
 	return nil
 }
 
-// checks for any msg from bot
-func ACK(bot *tgbotapi.BotAPI) {
-	if StopFlag {
-		return
-	}
-	u := tgbotapi.NewUpdate(0)
-	u.Timeout = 60
-	updates, err := bot.GetUpdatesChan(u)
-	if err != nil {
-		StopFlag = false
-	}
-	for update := range updates {
-		msg := update.Message.Text
-		if msg == "skip" {
-			StopFlag = true
-		} else if msg == "stop" {
-			StopFlag = true
-		} else if strings.HasPrefix(msg, "Date=") {
-			Date, err = strconv.Atoi(msg[5:])
-		}
-	}
-}
+// // checks for any msg from bot
+// func ACK(bot *tgbotapi.BotAPI) {
+// 	if StopFlag {
+// 		return
+// 	}
+// 	u := tgbotapi.NewUpdate(0)
+// 	u.Timeout = 60
+// 	updates, err := bot.GetUpdatesChan(u)
+// 	if err != nil {
+// 		StopFlag = false
+// 	}
+// 	for update := range updates {
+// 		msg := update.Message.Text
+// 		if msg == "skip" {
+// 			StopFlag = true
+// 		} else if msg == "stop" {
+// 			StopFlag = true
+// 		} else if strings.HasPrefix(msg, "Date=") {
+// 			Date, err = strconv.Atoi(msg[5:])
+// 		}
+// 	}
+// }
 
 // custom http.Get for changing header + decode json response
 func FetchV3(url string) (SlotInfo, error) {
