@@ -19,7 +19,7 @@ import (
 )
 
 // driver function
-func Track(w *http.ResponseWriter, r *http.Request) {
+func Track() {
 	for {
 		err := GetSlotInfo()
 		if err != nil {
