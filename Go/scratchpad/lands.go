@@ -10,6 +10,7 @@ func main() {
 	http.HandleFunc("/read", webBook)
 	http.HandleFunc("/", welcome)
 	http.ListenAndServe("", nil)
+	http.Handle(":8000", nil)
 }
 
 func welcome(w http.ResponseWriter, r *http.Request) {
